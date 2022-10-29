@@ -1,5 +1,18 @@
 # CloudFormationでのクロスアカウントVPC Peering
 
+## 参考サイト
+
+https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/peer-with-vpc-in-another-account.html
+
+https://dev.classmethod.jp/articles/crossaccount-vpcpeering-cloudformation/
+
+## ポイント
+ - アクセプタ側とリクエスタ側でそれぞれCFnテンプレートを作成・デプロイする必要がある。
+ - アクセプタ側では、リクエスタ側が接続を承認するためのスイッチロールを作成する必要がある。
+
+
+## CFn Template
+
  - アクセプタ側
   
 ```yml
