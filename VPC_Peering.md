@@ -1,4 +1,4 @@
-# クロスアカウントVPC Peering CloudFormation vs Terraform
+# クロスアカウントVPC Peering (CloudFormation vs Terraform)
 
 ## 参考サイト
 
