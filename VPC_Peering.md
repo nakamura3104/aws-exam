@@ -10,7 +10,6 @@ https://dev.classmethod.jp/articles/crossaccount-vpcpeering-cloudformation/
  - アクセプタ側とリクエスタ側でそれぞれCFnテンプレートを作成・デプロイする必要がある。
  - アクセプタ側では、リクエスタ側が接続を承認するためのスイッチロールを作成する必要がある。
 
-
 ## CFn Template
 
  - アクセプタ側
@@ -18,10 +17,16 @@ https://dev.classmethod.jp/articles/crossaccount-vpcpeering-cloudformation/
 ```yml
 AWSTemplateFormatVersion: 2010-09-09
 Description: Create a VPC and an assumable role for cross account VPC peering.
+
 Parameters:
   PeerRequesterAccountId:
     Type: String
+    
+    
 Resources:
+#---------------------------------------------#
+# Accepter VPC
+#---------------------------------------------#
   vpc:
     Type: 'AWS::EC2::VPC'
     Properties:
@@ -29,6 +34,10 @@ Resources:
       EnableDnsSupport: false
       EnableDnsHostnames: false
       InstanceTenancy: default
+      
+#---------------------------------------------#
+# SwitchRole used by the requester to accept.
+#---------------------------------------------#
   peerRole:
     Type: 'AWS::IAM::Role'
     Properties:
@@ -63,6 +72,7 @@ Outputs:
 ```yml
 AWSTemplateFormatVersion: 2010-09-09
 Description: Create a VPC and a VPC Peering connection using the PeerRole to accept.
+
 Parameters:
   PeerVPCAccountId:
     Type: String
@@ -70,7 +80,11 @@ Parameters:
     Type: String
   PeerRoleArn:
     Type: String
+    
 Resources:
+#---------------------------------------------#
+# Requester VPC
+#---------------------------------------------#
   vpc:
     Type: 'AWS::EC2::VPC'
     Properties:
@@ -78,6 +92,9 @@ Resources:
       EnableDnsSupport: false
       EnableDnsHostnames: false
       InstanceTenancy: default
+#---------------------------------------------#
+# VPC Peering Connections with SwitchRole for Accept.
+#---------------------------------------------#      
   vpcPeeringConnection:
     Type: 'AWS::EC2::VPCPeeringConnection'
     Properties:
