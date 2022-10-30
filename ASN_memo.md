@@ -1,3 +1,6 @@
+# 受験体験記
+https://blog.serverworks.co.jp/I-passed-ans-c01-exam
+
 
 ### WorkSpaces
  - ユーザ側のデバイス・通信要件
