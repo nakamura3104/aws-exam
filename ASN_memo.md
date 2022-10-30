@@ -1,10 +1,7 @@
 # DirectConnectの整理
-
-－－－－－－－－－－－－－－－－
-　dxを介した相互通信→NG
-　dxリージョン間接続→DirectConnectGatewayとか使わないとできない
-　－－－－－－－－－－－－－－－－
-
+### 使用メモ（未分類）
+ - dxを介した相互通信→NG
+ - dxリージョン間接続→DirectConnectGatewayとか使わないとできない
 
 ### 制限関連
 　・Public/PrivateVIFの上限				　　　　　　　		　　　　　	50
@@ -62,18 +59,19 @@
 
 
 ### 仕様
- - 監視について
+- 監視について
+
 　　通常のConnectionはCloudwatchで監視できる。HostedConnectionやVIFは不可。
 　　そのため、オンプレ側の危機で何等か監視をする必要がある。
   
   - クロスコネクトでユーザのルータに必要な使用は、.1Q対応、BGPのmd5認証、シングルモード対応
-
-　- 通常利用
-　　<http://corporate-tech-blog-wp.s3-website-ap-northeast-1.amazonaws.com/tech/wp-content/uploads/2018/12/DX_Normal.png>
-
+ 
+  - 通常利用
+    - ![DXイメージ](http://corporate-tech-blog-wp.s3-website-ap-northeast-1.amazonaws.com/tech/wp-content/uploads/2018/12/DX_Normal.png)
+  
  - 通常じゃない利用、Hosted Virtual Interface
-    - Connection（回線）を別のアカウントが持っていて、そこからVIFが払い出されている場合の構成のこと
-　　<http://corporate-tech-blog-wp.s3-website-ap-northeast-1.amazonaws.com/tech/wp-content/uploads/2018/12/DX_PartnerHostedVIF.png>
+   - Connection（回線）を別のアカウントが持っていて、そこからVIFが払い出されている場合の構成のこと
+   - ![DXイメージ](http://corporate-tech-blog-wp.s3-website-ap-northeast-1.amazonaws.com/tech/wp-content/uploads/2018/12/DX_PartnerHostedVIF.png)
 
  - 料金体系
 　　・AWSからのOutboundに課金
