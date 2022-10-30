@@ -1,7 +1,7 @@
 # 受験体験記
 https://blog.serverworks.co.jp/I-passed-ans-c01-exam
 
-
+***
 # VPC Flow log
 ## フローログで記録されないトラフィック
  - Amazon DNS サーバーに接続したときにインスタンスによって生成されるトラフィック。独自の DNS サーバーを使用する場合は、その DNS サーバーへのすべてのトラフィックが記録されます。
@@ -12,14 +12,14 @@ https://blog.serverworks.co.jp/I-passed-ans-c01-exam
  - ミラートラフィック。
  - デフォルト VPC ルーターの予約済み IP アドレスへのトラフィック。
  - エンドポイントのネットワークインターフェイスと Network Load Balancer のネットワークインターフェイスの間のトラフィック。
-
+***
 # WorkSpaces
 ## ユーザ側のデバイス・通信要件
 - サポートするクライアントデバイス (PC、Mac、Linux、iPad、Android タブレット、または Android 対応 Chrome OS デバイス)
 - TCP ポート 443 と PCoIP 用 4172 または WSP 用 4195 のいずれか、および PCoIP 用 UDP ポート 4172 または WSP 用 4195 が開いているインターネット接続
    - ※内→外アクセスの事らしい 
     
-
+***
 ・インスタンスから自分のメタデータを取得する方法
 <http://169.254.169.254/latest/meta-data/>
 
