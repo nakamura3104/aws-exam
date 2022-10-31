@@ -18,6 +18,14 @@ https://blog.serverworks.co.jp/I-passed-ans-c01-exam
 - サポートするクライアントデバイス (PC、Mac、Linux、iPad、Android タブレット、または Android 対応 Chrome OS デバイス)
 - TCP ポート 443 と PCoIP 用 4172 または WSP 用 4195 のいずれか、および PCoIP 用 UDP ポート 4172 または WSP 用 4195 が開いているインターネット接続
    - ※内→外アクセスの事らしい 
+ - 　VPCへの要件として2つのプライベートサブネット、2つのパブリックサブネット、NATゲートウェイ又はEIPが必要。
+   - （OSインストールやアプリのデプロイのためWorkspaceからインターネットへのアクセスが必要）
+ - ユーザ認証のためのディレクトリサービスが必要
+   - AWS上に新規の場合は、Microsoft AD or Simple AD
+   - オンプレADと連携する場合、AD Connector
+ - 利用にはクライアントソフトが必要
+   - クライアント側のネットワークでTCP/UDP4172,HTTPS,RTT<100msの要件を満たしている必要がある。
+
     
 ***
 ・インスタンスから自分のメタデータを取得する方法
@@ -206,15 +214,6 @@ https://blog.serverworks.co.jp/I-passed-ans-c01-exam
 　AWS上に構築できるフルマネージドのADサーバ。
 
 
-・WorkSpace
-　クラウドベースの仮想デスクトップサービス。
-　VPCへの要件として2つのプライベートサブネット、2つのパブリックサブネット、NATゲートウェイ又はEIPが必要。
-　（OSインストールやアプリのデプロイのためWorkspaceからインターネットへのアクセスが必要）
-　ユーザ認証のためのディレクトリサービスが必要
-　　－AWS上に新規の場合は、Microsoft AD or Simple AD
-　　－オンプレADと連携する場合、AD Connector
-　利用にはクライアントソフトが必要
-　クライアント側のネットワークでTCP/UDP4172,HTTPS,RTT<100msの要件を満たしている必要がある。
 
 ・VPC Flowlog
 　L7レベルは見れない。（L4＋α）
