@@ -4,16 +4,18 @@
  - dxリージョン間接続→DirectConnectGatewayとか使わないとできない
 
 ### 制限関連
-　・Public/PrivateVIFの上限				　　　　　　　		　　　　　	50
-　・TransitVIFの上限							　　　　　　　　　　　　　	1
-　・リージョン、アカウント当たりのアクティブなDirectConnect専用線接続数		10
-　・PrivateVIのBGP広報経路数				　　　　　　　　　　　			100
-　・リージョンごとのLAG上限					　　　　　　　　　　　　		10
-　・アカウント当たりのDirectConnectGateway			　　　　　　　		200
-　・DirectConnectGatewayあたりの、、、
-	VGW								　　　　　　　	10
-	TransitGateway					　　			3
-	VIF								　　　　　　　	30
+| クォータ                                                            | 上限 | 
+| ------------------------------------------------------------------- | ---- | 
+| Public/PrivateVIFの上限                                             | 50   | 
+| TransitVIFの上限                                                    | 1    | 
+| リージョン、アカウント当たりのアクティブなDirectConnect専用線接続数 | 10   | 
+| PrivateVIのBGP広報経路数                                            | 100  | 
+| リージョンごとのLAG上限                                             | 10   | 
+| アカウント当たりのDirectConnectGateway                              | 200  | 
+| DirectConnectGatewayあたりの`VGW`                                   | 10   | 
+| DirectConnectGatewayあたりの`TransitGateway`                        | 3    | 
+| DirectConnectGatewayあたりの`VIF`                                   | 30   | 
+
 
 ### 物理構成
 ```
