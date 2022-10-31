@@ -1,9 +1,8 @@
-# DirectConnectの整理
 ### 使用メモ（未分類）
  - dxを介した相互通信→NG
  - dxリージョン間接続→DirectConnectGatewayとか使わないとできない
 
-### 制限関連
+# 制限関連
 | クォータ                                                            | 上限 | 
 | ------------------------------------------------------------------- | ---- | 
 | Public/PrivateVIFの上限                                             | 50   | 
@@ -17,7 +16,7 @@
 | DirectConnectGatewayあたりの`VIF`                                   | 30   | 
 
 
-### 物理構成
+# 物理構成
 ```
 [VPC・AWS]--[DX-dvice]--(1G or 10G)--[顧客機器]--専用線--[オンプレミス]
  |          |                                  |                        |
@@ -29,7 +28,7 @@
  ・専用線は、キャリアの閉域網の場合もある。またオンプレがDXロケーションと同じ場合はWAN不要。
 
 
-### 用語
+# 用語
 　・Connection
 　　物理的な回線。1G又は10G。マネコンでは「ポートスピード」で表示される。
 　
@@ -91,13 +90,18 @@ graph TD
     C -->|Two| E[iPhone]
     C -->|Three| F[fa:fa-car Car]
 ```
-### DirectConnectGateway
- - マルチリージョンでの接続が可能（VGWは不可）
- - 複数のVPCのVGWやVIFをアタッチすることで、それらを相互接続することができるサービス。
- - プライベートVIF経由の接続で全リージョンの複数VPCと閉域で接続できるサービス
- - DirectConnectGatewayを用いたVPC間の接続、VIFから同じDXGに接続する別のVIF間の通信はNG
- - あくまでVIFを経由したオンプレ to VPCの通信のみ
- - 2019年現在ではマルチアカウントのVPC接続が可能。
+# DirectConnectGateway
+
+[参考ブログ](https://dev.classmethod.jp/articles/direct-connect-gateway/)
+- DXとVPCなどとの接続を効率化するためのサービス。
+- 複数のVPCのVGWやVIFをアタッチすることで、それらを相互接続することができるサービス。
+- プライベートVIF経由の接続で全リージョンの複数VPCと閉域で接続できるサービス
+- 従来はVIFとVPCを接続する場合、それらが`同一リージョン`に存在する必要があった。
+- DX-GWにより、あるリージョンのDX専用線を使い、別リージョンからオンプレとの通信ができるようになる。
+- マルチリージョンでの接続が可能（VGWは不可）
+- DirectConnectGatewayを用いたVPC間の接続、VIFから同じDXGに接続する別のVIF間の通信はNG
+- あくまでVIFを経由したオンプレ to VPCの通信のみ
+- 2019年現在ではマルチアカウントのVPC接続が可能。
 
 
 ### 仕様
