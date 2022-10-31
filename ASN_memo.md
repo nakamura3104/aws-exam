@@ -41,6 +41,12 @@ https://blog.serverworks.co.jp/I-passed-ans-c01-exam
  - この機能では、従来の実装と比較し、I/O パフォーマンスが高く、CPU 利用率が低くなる新しいネットワーク仮想化スタックが使用される。
  - 拡張ネットワーキングを最大限に利用するためには、VPC で HVM AMI を起動し、適切なドライバをインストールする必要がある。
 
+#### シングルルートI/O仮想化（SR-IOV）
+ - 仮想サーバのネットワークを低遅延にすることにより高スループットを実現するための標準化された仕組み。
+ - Hypervisor経由であったネットワーク処理を仮想化に対応したNIC（PCIe）にオフロードすることにより、ネットワークの処理をハードウェア化する。
+ - [ネットワンの参考ブログ](https://www.netone.co.jp/knowledge-center/blog-column/knowledge_takumi_087/)
+
+
 ## プレイスメントグループ
  - 同一AZ内のECをグループ化し、レイテンシを減らす方法。
  - 同じリージョン内の複数のPeerVPCに跨ることが可能。
@@ -280,33 +286,9 @@ http://aws-de-media.s3.amazonaws.com/images/AWS_Summit_2018/June7/Coral/AWS%20Di
 　MPLSネットワーク間の高可用性で効率的な接続の構築に役立つベストプラクティス、
 　推奨事項、および一般的な構成をAWSのお客様に提供します。
                                                             
-                                                            
-                                                            
-                                                            ■■■Networking■■■
 ・インスタンスから自分のメタデータを取得する方法
 http://169.254.169.254/latest/meta-data/
 
-・cfn-init
-　cloudFormationの拡張スクリプト
-
-・DirectConnect関連
-　－BGPの経路制御
-　　・オンプレ→AWSはASパスプリペンド（待機系のASパスを増やす）
-　　・オンプレ←AWSはLP（待機系のほうが値が小さくなるように）
-　－クロスコネクトでユーザのルータに必要な使用は、.1q対応、BGPのmd5認証、シングルモード対応
-　－DirectConnectGateway
-　　・プライベートVIF経由の接続で全リージョンの複数VPCと閉域で接続できるサービス
-　　・DirectConnectGatewayを用いたVPC間の接続、VIFから同じDCGに接続する別のVIF間の通信はNG
-　　・あくまでVIF to VPCの通信のみ
-　－通常利用
-　　http://corporate-tech-blog-wp.s3-website-ap-northeast-1.amazonaws.com/tech/wp-content/uploads/2018/12/DX_Normal.png
-　－通常じゃない利用、Hosted Virtual Interface
-　　・Connection（回線）を別のアカウントが持っていて、そこからVIFが払い出されている場合の構成のこと
-　　http://corporate-tech-blog-wp.s3-website-ap-northeast-1.amazonaws.com/tech/wp-content/uploads/2018/12/DX_PartnerHostedVIF.png
-　－料金体系
-　　・AWSからのOutboundに課金
-　　・VIFのオーナーアカウントに課金
-　　・
 
 ・S3が403となる理由
 vifのパブリックとプライベートの違い
