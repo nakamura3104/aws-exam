@@ -41,6 +41,9 @@ https://blog.serverworks.co.jp/I-passed-ans-c01-exam
  - この機能では、従来の実装と比較し、I/O パフォーマンスが高く、CPU 利用率が低くなる新しいネットワーク仮想化スタックが使用される。
  - 拡張ネットワーキングを最大限に利用するためには、VPC で HVM AMI を起動し、適切なドライバをインストールする必要がある。
 
+## プレイスメントグループ
+ - 同一AZ内のECをグループ化し、レイテンシを減らす方法。
+ - 同じリージョン内の複数のPeerVPCに跨ることが可能。
 
 
 ・S3が「HTTP 403: Access Denied」となる理由
@@ -236,8 +239,6 @@ https://blog.serverworks.co.jp/I-passed-ans-c01-exam
 　これはVPC内にTAPを構成し、ミラーしたパケットを解析のためのNLBやEC2に転送できる機能である。
 　キャプチャしたパケットはsuricataやwiresharkで解析できる。
 　　
-・プレイスメントグループ
-　同一AZ内のECをグループ化し、レイテンシを減らす方法
 
 
 ・AWSのAD関連サービスの種類
