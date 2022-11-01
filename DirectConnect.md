@@ -1,8 +1,12 @@
+# 概要
+
+[Blackblet](https://d1.awsstatic.com/webinars/jp/pdf/services/20210209-AWS-Blackbelt-DirectConnect.pdf)
+
 # 使用メモ（未分類）
  - dxを介した相互通信→NG
  - dxリージョン間接続→DirectConnectGatewayとか使わないとできない
 
-・DirectConnect関連
+# DirectConnect関連
 　－クロスコネクトでユーザのルータに必要な使用は、.1q対応、BGPのmd5認証、シングルモード対応
 　－DirectConnectGateway
 　　・プライベートVIF経由の接続で全リージョンの複数VPCと閉域で接続できるサービス
@@ -17,8 +21,7 @@
 　　・AWSからのOutboundに課金
 　　・VIFのオーナーアカウントに課金
 　
- 
- ■ 現時点の疑問()
+  現時点の疑問()
 - マルチAZの場合のレイテンシは発生する(公式は考慮不要? とあるが実際はどうか)
 →2msec程度はある。アプリ側でAZ跨ぐような通信があるか。その場合、どれくらいの遅延を許容できる仕様かによる
 ★はい、ご認識の通りです。
@@ -54,36 +57,33 @@ EFS自体はマルチAZで展開され、AZ毎にエンドポイントがある�
 
 
 # 物理構成
-```
-[VPC・AWS]--[DX-dvice]--(1G or 10G)--[顧客機器]--専用線--[オンプレミス]
- |          |                                  |                        |
- |--Amazon--|-----------DXロケーション---------|-------顧客用意---------|
- |          |                                  |                        |
+![image](https://cdn-ssl-devio-img.classmethod.jp/wp-content/uploads/2022/06/PowerPoint_Presentation.png)
 
-```
- ・顧客機器は、顧客用意の場合と、パートナー（キャリアとか）が用意の場合がある。
- ・専用線は、キャリアの閉域網の場合もある。またオンプレがDXロケーションと同じ場合はWAN不要。
+- 顧客機器は、顧客用意の場合と、パートナー（キャリアとか）が用意の場合がある。
+- 専用線は、キャリアの閉域網の場合もある。またオンプレがDXロケーションと同じ場合はWAN不要。
 
 
 # 用語
-　・Connection
-　　物理的な回線。1G又は10G。マネコンでは「ポートスピード」で表示される。
+`Connection`
+  - 物理的な回線。1G又は10G。マネコンでは「ポートスピード」で表示される。
 　
-　・VIF(VirtualInterface)
-　　仮想的な回線。VLAN IDを持つ。1つのConnectionの中に複数のVIFを作成することが可能。
-　　→Connectionが物理ポート、VIFがそこに割り当てるVLANという理解。
+ `VIF(VirtualInterface)`
+ - 仮想的な回線。VLAN IDを持つ。1つのConnectionの中に複数のVIFを作成することが可能。
+   - Connectionが物理ポート、VIFがそこに割り当てるVLANという理解。
 
-　・Hosted Virtaul Interface
-　　Connectionを別アカウント（パートナー）が持っていて、そこからVIFが払い出されている場合のVIFのこと。
-　　しかし明示的にマネコンに表示されるわけではなく、Connectiomも表示される。ただそのIDが自分のAWSアカウントとはならないだけ。
+`Hosted Virtaul Interface`
+- Connectionを別アカウント（パートナー）が持っていて、そこからVIFが払い出されている場合のVIFのこと。
+- しかし明示的にマネコンに表示されるわけではなく、Connectionも表示される。ただそのIDが自分のAWSアカウントとはならないだけ。
 
-　・Hosted Connection (Sub 1G)
-　　パートナーなどから払い出される仮想的なConnection。
-　　500Mや100Mなど1G未満の接続となり、また割り当てられるVIFは通常のConnectionと異なり1IDのみ。
-　　実体は、帯域付きHostedVIFのようなものだと理解でる。
-　
-　・DirectConnectロケーション
-　　エクイニクスのDCなど、DirectConnectの物理的な接続ポイントの配置された場所のこと。
+`Hosted Connection (Sub 1G)`
+- パートナーなどから払い出される仮想的なConnection。
+- 500Mや100Mなど1G未満の接続となり、また割り当てられるVIFは通常のConnectionと異なり1IDのみ。
+- 実体は、帯域付きHostedVIFのようなものだと理解でる。
+
+
+`DirectConnectロケーション`
+- エクイニクスのDCなど、DirectConnectの物理的な接続ポイントの配置された場所のこと。
+
 
 # 仮想インターフェース（VIF）
 - どこに（VPCなのか、AWSなのか、TransitGWなのか）つなぐVIFなのかでタイプが変わる。
@@ -103,7 +103,17 @@ EFS自体はマルチAZで展開され、AZ毎にエンドポイントがある�
  - TransitVIF
    - MTUはデフォルト1500だが最大8500までサポートされている。（変更には停止が必要）
 　　
+# Direct Connect + IPSec VPN
+- Site-to-Site VPNにはPublic IPが必要となるため、Public VIFが必要となる。
+- AWS側は、Public VIFの背後にVGWを配置し、Customerルータとの間にDX上にIPSecを構成できる。
+- ![img](https://docs.aws.amazon.com/images/whitepapers/latest/aws-vpc-connectivity-options/images/image10.png)
 
+> 2022.7頃、アップデートによりPrivate VIFでもDX over VPNが可能になった。
+> https://dev.classmethod.jp/articles/aws-site-to-site-vpn-now-supports-private-ip-vpn/
+> ![img](https://cdn-ssl-devio-img.classmethod.jp/wp-content/uploads/2022/07/eaea6cc56280fc8b59a73872c4742300-1.png)
+
+
+***
 ### クロスコネクトの申請方法
 LOA-CFAをダウンロードしたら、クロスネットワーク接続 (別名クロスコネクト) を完了する必要があります。
 AWS Direct Connect ロケーションに機器を設置済みの場合は、適切なプロバイダに連絡して、クロスコネクトを完了します。
