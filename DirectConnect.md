@@ -140,34 +140,31 @@ graph TD
 
 ### 仕様
 - 監視について
-
-　　通常のConnectionはCloudwatchで監視できる。HostedConnectionやVIFは不可。
-　　そのため、オンプレ側の危機で何等か監視をする必要がある。
-  
-  - クロスコネクトでユーザのルータに必要な使用は、.1Q対応、BGPのmd5認証、シングルモード対応
- 
-  - 通常利用
-    - ![DXイメージ](http://corporate-tech-blog-wp.s3-website-ap-northeast-1.amazonaws.com/tech/wp-content/uploads/2018/12/DX_Normal.png)
+  - 通常のConnectionはCloudwatchで監視できる。HostedConnectionやVIFは不可。
+  - そのため、オンプレ側の危機で何等か監視をする必要がある。
+- クロスコネクトでユーザのルータに必要な使用は、.1Q対応、BGPのmd5認証、シングルモード対応 
+- 通常利用
+  - ![DXイメージ](http://corporate-tech-blog-wp.s3-website-ap-northeast-1.amazonaws.com/tech/wp-content/uploads/2018/12/DX_Normal.png)
   
  - 通常じゃない利用、Hosted Virtual Interface
    - Connection（回線）を別のアカウントが持っていて、そこからVIFが払い出されている場合の構成のこと
    - ![DXイメージ](http://corporate-tech-blog-wp.s3-website-ap-northeast-1.amazonaws.com/tech/wp-content/uploads/2018/12/DX_PartnerHostedVIF.png)
 
- - 料金体系
-　　・AWSからのOutboundに課金
-　　・Connection、VIFのオーナーアカウントに課金
-　　・DirectConnectはポート時間（1時間単位）とデータ転送の２つで請求される。
+- 料金体系
+  - AWSからのOutboundに課金
+  - Connection、VIFのオーナーアカウントに課金
+  - DirectConnectはポート時間（1時間単位）とデータ転送の２つで請求される。
 
- - LAG
-　　複数のConnectionを最大４つまでLAGにまとめ負荷分散できる。
+- LAG
+  - 複数のConnectionを最大４つまでLAGにまとめ負荷分散できる。
 
- - DirectConnectの開始方法
-　　①DirectConnectロケーション、冗長有無、帯域の決定
-　　②マネコンから接続リクエスト
-　　③マネコンから許可書（接続施設割り当て"LOA－CFA"）をダウンロードでき、クロスコネクト接続のリクエストが可能になる。
-　　④オンプレから接続する場合は、キャリアに申請する。
-　　⑤キャリア、プロバイダにLOA－CFAを提供する。するとキャリアが接続を確立する。
-　　⑥接続が確立されたらマネコンからVIFを作成する。
+- DirectConnectの開始方法
+  1. DirectConnectロケーション、冗長有無、帯域の決定
+  1. マネコンから接続リクエスト
+  1. マネコンから許可書（接続施設割り当て"LOA－CFA"）をダウンロードでき、クロスコネクト接続のリクエストが可能になる。
+  1. オンプレから接続する場合は、キャリアに申請する。
+  1. キャリア、プロバイダにLOA－CFAを提供する。するとキャリアが接続を確立する。
+  1. 接続が確立されたらマネコンからVIFを作成する。
 
 
 ## 冗長化
