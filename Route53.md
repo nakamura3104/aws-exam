@@ -2,16 +2,18 @@
 - オンプレからAWS内の名前を解決できるリゾルバ/フォワーダ機能
 - プライベート空間のみ（オンプレかAWSのリソースの名前解決、AWSからオンプレのリソースの名前解決）可能
 - inboud方向とoutbound方向があり、エンドポイントとしてのIPが提供され、inboudの場合はそのIPをリゾルバ/フォワーダと指定することでオンプレからAmazonDNS→Route53と名前解決できる。
+  - https://qiita.com/rotekxyz/items/585635a5ccd806b651e7
+  - https://dev.classmethod.jp/cloud/aws/route53-resolver/
 
-https://qiita.com/rotekxyz/items/585635a5ccd806b651e7
-
-https://dev.classmethod.jp/cloud/aws/route53-resolver/
+:::note info
 
 - ALIASレコードを指定できるリソース
   - CloudFront
   - ELB
   - static-website-s3-bucket
   - 他のRoute 53リソースレコードセット
+
+:::
 
 - レイテンシルーティング
   - 全世界展開しているようなサービスを複数リージョンで提供している場合、レイテンシーベースルーティングを指定することでクライアントへのレイテンシを小さくすることができる。
