@@ -5,15 +5,11 @@
   - https://qiita.com/rotekxyz/items/585635a5ccd806b651e7
   - https://dev.classmethod.jp/cloud/aws/route53-resolver/
 
-:::note info
-
 - ALIASレコードを指定できるリソース
   - CloudFront
   - ELB
   - static-website-s3-bucket
   - 他のRoute 53リソースレコードセット
-
-:::
 
 - レイテンシルーティング
   - 全世界展開しているようなサービスを複数リージョンで提供している場合、レイテンシーベースルーティングを指定することでクライアントへのレイテンシを小さくすることができる。
