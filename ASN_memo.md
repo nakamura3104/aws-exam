@@ -7,6 +7,7 @@ https://blog.serverworks.co.jp/I-passed-ans-c01-exam
    - （エンドポイントポリシーというものを認識していなかった）
  - オンプレからアクセスできるもの、できないも、やり方
  - CF+S3で署名付きリクエストを使って特定のユーザにのみコンテンツを配信する。
+ - CludHubを使ったVGW経由のサイト間通信
 
 ***
 # CloudHUB
