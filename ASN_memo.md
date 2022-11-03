@@ -2,12 +2,36 @@
 https://blog.serverworks.co.jp/I-passed-ans-c01-exam
 
 ***
-
 # Hands-On ToDo
  - s3エンドポイント＋エンドポイントポリシーでのプライベート接続
    - （エンドポイントポリシーというものを認識していなかった）
  - オンプレからアクセスできるもの、できないも、やり方
  - CF+S3で署名付きリクエストを使って特定のユーザにのみコンテンツを配信する。
+
+***
+# CloudHUB
+ - VGWを中継点として複数のCGWをハブスポークで相互通信できるようにしたもの。CGWのAS番号が重複しないようにする必要がある。
+
+
+# DHCPオプションセット
+- EC2とかの起動時にIPと一緒に払い出すパラメータ一式。
+- [domain-name-servers]
+  - 最大4つまでのDNSサーバー、または AmazonProvidedDNSのIP アドレス。
+  - デフォルトのDHCPオプションセットでAmazonProvidedDNS が指定。
+  - 複数のドメインネームサーバーを指定する場合は、カンマで区切る。
+ - [domain-name]
+   - us-east-1でAmazonProvidedDNS を使用している場合は、ec2.internalとなる。
+   - 別のリージョンで AmazonProvidedDNSを使用している場合は、region.compute.internalとなる（例: ap-northeast-1.compute.internal）。
+   - それ以外の場合は、ドメイン名を指定する (例: example.com)。
+- [ntp-servers]
+  - 最大 4 つまでのNTPサーバーのIPアドレス。デフォルトは、Amazon Time Sync Serviceで、リンクローカルの169.254.169.123出来る。
+- [netbios-name-servers]
+  - 最大 4 つまでの NetBIOS ネームサーバーの IP アドレス。
+- [netbios-node-type]
+  - NetBIOS ノードタイプ (1、2、4、8)。
+
+- →NTPサーバを変更するには、新しいオプションセットを作成し、VPCの設定で割り当てられているオプションセットを変更する。
+
 
 ***
 # VPC Flow log
@@ -136,30 +160,6 @@ https://docs.aws.amazon.com/ja_jp/AWSEC2/latest/UserGuide/placement-groups.html#
 
 ・TransitVPC
 　CiscoCSRとかlambdaを利用した自作TransitGatewayみたいなもの。
-
-・CloudHUB
-　VGWを中継点として複数のCGWをハブスポークで相互通信できるようにしたもの。CGWのAS番号が重複しないようにする必要がある。
-
-
-
-・DHCPオプションセット
-　EC2とかの起動時にIPと一緒に払い出すパラメータ一式。
-　[domain-name-servers]
-	最大4つまでのDNSサーバー、または AmazonProvidedDNSのIP アドレス。
-	デフォルトのDHCPオプションセットでAmazonProvidedDNS が指定。
-	複数のドメインネームサーバーを指定する場合は、カンマで区切る。
-　[domain-name]
-	us-east-1でAmazonProvidedDNS を使用している場合は、ec2.internalとなる。
-	別のリージョンで AmazonProvidedDNSを使用している場合は、region.compute.internalとなる（例: ap-northeast-1.compute.internal）。
-	それ以外の場合は、ドメイン名を指定する (例: example.com)。
-　[ntp-servers]
-	最大 4 つまでのNTPサーバーのIPアドレス。デフォルトは、Amazon Time Sync Serviceで、リンクローカルの169.254.169.123出来る。
-　[netbios-name-servers]
-	最大 4 つまでの NetBIOS ネームサーバーの IP アドレス。
-　[netbios-node-type]
-	NetBIOS ノードタイプ (1、2、4、8)。
-
-　→NTPサーバを変更するには、新しいオプションセットを作成し、VPCの設定で割り当てられているオプションセットを変更する。
 
 ・DNS関連
 【DNS一般】
