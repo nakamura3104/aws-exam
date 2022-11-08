@@ -133,7 +133,7 @@ AWS Direct Connect 接続では、他のリージョンのリソースにアク�
 
 ```mermaid
 graph TD
-    A[Christmas] -->|Get money| B(Go shopping)
+    A[LOA-CFAをDL] -->|Get money| B(Go shopping)
     B --> C{Let me think}
     C -->|One| D[Laptop]
     C -->|Two| E[iPhone]
