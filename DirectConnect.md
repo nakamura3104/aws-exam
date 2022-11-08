@@ -1,6 +1,7 @@
 # 概要
 
 [Blackblet](https://d1.awsstatic.com/webinars/jp/pdf/services/20210209-AWS-Blackbelt-DirectConnect.pdf)
+[Blackbelt 2020/2/19](https://techstock.jp/wp-content/uploads/20200219_BlackBelt_Onpremises_Redundancy.pdf)
 
 # 使用メモ（未分類）
  - dxを介した相互通信→NG
