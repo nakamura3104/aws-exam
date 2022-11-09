@@ -60,7 +60,6 @@ https://blog.serverworks.co.jp/I-passed-ans-c01-exam
  - 利用にはクライアントソフトが必要
    - クライアント側のネットワークでTCP/UDP4172,HTTPS,RTT<100msの要件を満たしている必要がある。
 
-    
 ***
 ・インスタンスから自分のメタデータを取得する方法
 <http://169.254.169.254/latest/meta-data/>
@@ -68,7 +67,13 @@ https://blog.serverworks.co.jp/I-passed-ans-c01-exam
 ・cfn-init
 　cloudFormationの拡張スクリプト
 
+***
+# ELB
+## NLB Proxy protocol v2
+しらべる
 
+
+***
 # EC2 Network
 ## 拡張ネットワーキング
  - ppsの性能を高く、ネットワークジッター/レイテンシーを低くする方法
