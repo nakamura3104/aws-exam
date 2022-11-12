@@ -70,7 +70,11 @@ https://blog.serverworks.co.jp/I-passed-ans-c01-exam
 
 ***
 # ELB
+
 ## NLB Proxy protocol v2
+`ALBにおけるXFFのような、クライアントのIPを保持する機能`
+ - NLBはターゲットをインスタンスIDで指定すれば、クライアントのIPが保持される。
+ - しかし、ターゲットをIPで指定した場合、NLBのIPが送信元となる。
 しらべる
 
 
