@@ -9,6 +9,7 @@ https://blog.serverworks.co.jp/I-passed-ans-c01-exam
  - [この資料](https://techstock.jp/wp-content/uploads/20200219_BlackBelt_Onpremises_Redundancy.pdf)の冗長化方法、可能な限り
  - CF+S3で署名付きリクエストを使って特定のユーザにのみコンテンツを配信する。
  - CludHubを使ったVGW経由のサイト間通信
+ - Private Link
 
 ***
 # CloudHUB
