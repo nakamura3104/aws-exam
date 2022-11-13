@@ -11,6 +11,27 @@ https://blog.serverworks.co.jp/I-passed-ans-c01-exam
  - CludHubを使ったVGW経由のサイト間通信
  - Private Link
 
+<br>
+
+***
+# CloudHSM
+ - KMSの専用環境版のイメージ。
+ - VPC内にHSM用のインスタンスを作成し、そこに鍵を保管し、参照する。
+ - HSMインスタンスはクラスター構成を取ることが可能。
+
+### ユースケース
+https://www.digicert.co.jp/welcome/pdf/wp_ssl_negotiation.pdf
+
+ - Webサーバ側でSSLを終端する場合に、その暗号化・復号化をオフロードできる。
+ - SSL証明書認証のフロー
+   - ![image](https://user-images.githubusercontent.com/60680996/201510093-bc8a3c1f-5dd0-4cb2-8947-251c056bd453.png)
+
+ - CloudHSMでオフロードする場合のフロー
+   - ![img](https://docs.aws.amazon.com/ja_jp/cloudhsm/latest/userguide/images/ssl-offload-handshake-process.png)
+
+
+<br>
+
 ***
 # CloudFront
  - CloudFrontは、リクエストの最初のバイトを受信したらファイルをユーザに転送し始める仕様。
