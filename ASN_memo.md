@@ -6,6 +6,7 @@ https://blog.serverworks.co.jp/I-passed-ans-c01-exam
  - s3エンドポイント＋エンドポイントポリシーでのプライベート接続
    - （エンドポイントポリシーというものを認識していなかった）
  - オンプレからアクセスできるもの、できないも、やり方
+ - オンプレミスDNSフォワーダからプライベートホストゾーンの名前解決
  - [この資料](https://techstock.jp/wp-content/uploads/20200219_BlackBelt_Onpremises_Redundancy.pdf)の冗長化方法、可能な限り
  - CF+S3で署名付きリクエストを使って特定のユーザにのみコンテンツを配信する。
  - CludHubを使ったVGW経由のサイト間通信
@@ -149,7 +150,16 @@ https://docs.aws.amazon.com/ja_jp/AWSEC2/latest/UserGuide/placement-groups.html#
  - `G4` 機械学習推論やグラフィックを大量に使用するワークロードを迅速化するために設計されています。
  - `G3` グラフィック集約型アプリケーション用に最適化されています。
  - `F1` フィールドプログラマブルゲートアレイ (FPGA) によるカスタマイズ可能なハードウェアアクセラレーションが提供されま
-   - →ネットワークアプライアンスのレイテンシを最小化するにはF1が最適
+   - > ネットワークアプライアンスのレイテンシを最小化するにはF1が最適
+
+
+## EC2の準仮想化(PV)と完全仮想化(HVM)の違い
+- PVはネットワークやディスクIOをエミュレーションせず、特別なドライバで操作する方式
+- HVMは物理マシンのOSイメージをそのまま利用可能
+- 従来はPVのほうが性能がよかったが、最近はPV on HVMによりHVMでも同等以上の性能が可能 
+  - > https://awsjp.com/AWS/hikaku/paravirtualPV-Hardware-assistedVM-compare.html
+  - > http://blog.serverworks.co.jp/tech/2018/12/11/concepts-of-direct-connect/
+  - > http://aws-de-media.s3.amazonaws.com/images/AWS_Summit_2018/June7/Coral/AWS%20Direct%20Connect%20Deep%20Dive.pdf
 
 ***
 # S3
@@ -162,168 +172,67 @@ https://docs.aws.amazon.com/ja_jp/AWSEC2/latest/UserGuide/placement-groups.html#
 ### Amazon S3 にアクセスするためのユーザー認証情報
  - AWS SDK&AWS CLI は、IAM ユーザーの認証情報、またはバケットへのアクセス許可のあるIAMロールを使用するように設定されている必要がある。
 
+
+### バケットで有効化されているリクエスタ支払い
+- バケットをリクエスタ支払いバケットとして設定すると、匿名でのアクセスが403errorとなる。
+- リクエスタは、リクエストに `x-amz-request-payer`を (POST、GET、HEADの場合はヘッダーに、RESTの場合はパラメータとして) 含めることで、リクエストとデータのダウンロードに課金されることを了解している旨を示す必要がある
+
 ***
 # VPC Endpoint
+
+![privatelink](https://devlog.arksystems.co.jp/2018/05/11/4896/)
+
+### Gateway方式とInterface方式
+- Gateway方式
+  - 対応しているのはS3とDynamoだけ
+  - VPCエンドポイントはリージョン毎の設定となる
+  - ルートテーブルのターゲットとして登録される。（IGWのような感じ）
+  - VPC外からGWへのアクセスは出来ない。
+  - GWの方は、名前解決するとパブリックIPが返答される。
+  - VPCエンドポイントポリシーの割当が出来る
+
+- Interface方式（別名Privatelink）
+  - プライベートIPを持つENIとして登録される。
+  - エンドポイント自体にSGを割り当ててIN/OUTを制限できる。
+  - DirectConnectの場合だけ、VPC外からのアクセスが可能。
+
+|              | Gateway型                                                                          | PrivateLink(Interface型)                                                                                                                   | 
+| ------------ | ---------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ | 
+| アクセス制御 | エンドポイントポリシー。<br>IAM Policyと同じ構文でアクセス先のリソースを制限可能。 | セキュリティグループ。<br>セキュリティグループでアクセス元IP、ポートを制御可能。<br>対象のサービスの特定のリソースへのアクセス制御は不可。 | 
+| 利用料金     | 無料                                                                               | 有料                                                                                                                                       | 
+| 冗長性       | ユーザー側で意識する必要なし                                                       | マルチAZで配置するように設定する                                                                                                           | 
+
 ### VPC エンドポイントポリシー
 - エンドポイントの作成時または変更時にエンドポイントにアタッチする IAM リソースポリシー
 - エンドポイントの作成時にポリシーをアタッチしない場合、サービスへのフルアクセスを許可するデフォルトのポリシーがアタッチされる
+- 他のポリシー（S3の場合、IAMユーザポリシーやバケットポリシー）を上書きするものではない。（and条件で許可が必要）
 
 
-　・AWS KMSによるオブジェクトの暗号化
-　　→KMSで暗号化されている場合、IAMのアクセス権限以外に
-　　　KMSキーポリシーで暗号化/復号化等のactionが許可されている必要がある。
+***
+# AWSのAD関連サービスの種類
+- ADコネクター
+  - ADプロキシとしてオンプレのADの認証やマネコンへのSSOができる
 
-　・バケットで有効化されているリクエスタ支払い
-　　→バケットをリクエスタ支払いバケットとして設定すると、匿名でのアクセスが403errorとなる。
-　　　リクエスタは、リクエストに x-amz-request-payer を (POST、GET、HEADの場合はヘッダーに、RESTの場合はパラメータとして) 含めることで、
-　　　リクエストとデータのダウンロードに課金されることを了解している旨を示す必要がある
-
-　・AWS Organizations のサービスコントロールポリシー
-　　→IAMポリシーだけでなくSCPでも許可されている必要がある
-
-
-
-
-・VPCエンドポイント
-　Gateway方式とInterface方式があり、Gateway方式があるのはS3とDynamoだけ
-　－Gateway方式
-　　ルートテーブルのターゲットとして登録される。（IGWのような感じ）
-　　エンドポイントにアクセスするインスタンス側のSGでの制御が必要。
-　　VPC外からGWへのアクセスは出来ない。
-　　－VPCエンドポイントポリシーの割当が出来る
-　　　エンドポイントにアタッチ出来るIAMリソースポリシー。
-　　　エンドポイントから指定されたサービス(S3/Dynamo)へのアクセスを制限できる。
-　　　他のポリシー（S3の場合、IAMユーザポリシーやバケットポリシー）を上書きするものではない。（and条件で許可が必要）
-
-　－Interface方式（別名Privatelink）
-　　プライベートIPを持つENIとして登録される。
-　　エンドポイント自体にSGを割り当ててIN/OUTを制限できる。
-　　DirectConnectの場合だけ、VPC外からのアクセスが可能。
-
-
-・EC2の準仮想化(PV)と完全仮想化(HVM)の違い
-　PVはネットワークやディスクIOをエミュレーションせず、特別なドライバで操作する方式
-　HVMは物理マシンのOSイメージをそのまま利用可能
-　従来はPVのほうが性能がよかったが、最近はPV on HVMによりHVMでも同等以上の性能が可能
-　https://awsjp.com/AWS/hikaku/paravirtualPV-Hardware-assistedVM-compare.html
-
-
-・TransitVPC
-　CiscoCSRとかlambdaを利用した自作TransitGatewayみたいなもの。
-
-・DNS関連
-【DNS一般】
-・フォワーダ
-　自分自身ではDNSの名前解決を行わず、別のフルサービスリゾルバへDNS要求を中継するDNSサーバ
-　結果のキャッシュは行う。LANからインターネットへのクエリトラフィックを削減するために用いられる。
-
-・CNAME
-　(CNAMEレコードの例)---------------------------------------------
-　server01.example.jp.   IN  A      192.168.20.31
-　www1.example.jp.       IN  CNAME  server01.example.jp.
-　www2.example.jp.       IN  CNAME  server01.example.jp.
-　-----------------------------------------------------------------
-　・別名に対し、正式名であるcinonicalレコード（server01）は、1つでなければならない。
-　　上記の例だと、wwwは増やせるが、例えばwww1に対し複数のserver01、02みたいな指定はできない。
-
-　・別のレコードがあるのにCNAMEを登録することはできない。
-　　上記の例だとserver01を別名としたCNAMEは登録できない。
-
-・Zone Apex（ゾーンの頂点）
-　権威サーバが持つゾーンそのもののこと。
-　この名前にはCNAMEを設定できない。それは同一の名前があるレコードのCNAMEは作成できないという制約に対して
-　zone apexは、example.com NS <name server>というNSレコードを持つことがRFCで定められているため。
-　https://www.atmarkit.co.jp/fnetwork/dnstips/008.html
-
-・SRVレコード
-　ドメイン内の共用的なサーバとかのIP/ポート番号を提供するレコード。
-　SRVレコードに対応するクライアントであれば、使いたいサーバの情報を管理者に問い合わせることなく入手できる
-
- SRVレコードのフォーマット
- _Service._Proto.Name  TTL Class  SRV Priority  Weight  Port  Target
-　(SRVレコードの例)------------------------------------------------
-　_ftp._tcp.example.jp.   IN  SRV 1   0   21  server01.example.jp.
-　_ftp._tcp.example.jp.   IN  SRV 2   0   21  server02.example.jp.
-　server01.example.jp.    IN  A   192.168.20.31
-　server02.example.jp.    IN  A   192.168.20.32
-　-----------------------------------------------------------------
-
-
-【AmazonProvidedDNS】
-　・VPCのネットワークアドレスに2を加えたIPを持つ。
-　・キャッシュサーバとしてのみ利用可能。
-　・セットしたVPCのAmazonDNS以外からはアクセスできない。
-
-
-【PrivateHostedとPablicHosted】
-　－Privateは、オリジナルのローカルドメインを作成できる。
-　　AmazonDNSで割り当てられる名前以外を使いたいときに利用する。
-　　たとえば、パブリックのfqdnと同じものを使いたいがクライアントがVPCにいるときはVPCのIPを応答させたいなど。
+- SimpleAD
+  - LinuxベースのADサービス。そこまでガチじゃない構成ならこっち。
 　
-・Amazon DNSサーバ（AmazonProvidedDNS）
-　－AWSにより提供されるキャッシュサーバ（フルリゾルバ）。
-　－VPC内からしか利用できない。
-　－ルートヒント（ルートサーバのIP一覧）の編集不可。
-　－フォワーダの編集不可
-　－AWSとしては、IPとして169.254.169.253も使用可能だが、WindowsServer2008などでは使えない。
+- MicrosoftAD
+  - ガチのADサービス。大規模ならこっち。
 
-・Directory Service Microsoft AD
-　AWS上に構築できるフルマネージドのADサーバ。
+***
+# その他
+ - Ephemeral port ：はかないポート。クライアント側として動的に割り当てられる一時的なポート番号
+   - RFC6056では1024以上、IANA/UNIX/Windでは49152以上、Linuxは32768～61000、WinXP/2003以前は1025-5000
 
-
-
-・VPC Flowlog
-　L7レベルは見れない。（L4＋α）
-
-
-・ALB　　
-　- パスベース：リクエスト内のURLに基づいて、ターゲットグループへのルートを設定
-　- ホストベース：要求されたドメインに基づいて、ターゲットグループへのルートを設定
-
-・AWS inspector
-　EC2に対して脆弱性診断ができるツール。エージェントが必要。以下のOSに対応。
-　－Amazon Linux (2015.03 以降)
-　－Ubuntu (14.04 LTS)
-　－Red Hat Enterprise Linux (7.2)
-　－CentOS (7.2)
-　－Windows Server 2008 R2 および Windows Server 2012（β版）
-
-・AWSでのパケットキャプチャ
-　VPC flow log 以外だとVPC Traffic monitoringという機能がる。
-　これはVPC内にTAPを構成し、ミラーしたパケットを解析のためのNLBやEC2に転送できる機能である。
-　キャプチャしたパケットはsuricataやwiresharkで解析できる。
-　　
-
-
-・AWSのAD関連サービスの種類
-　・ADコネクター
-　　ADプロキシーとしてオンプレのADの認証やマネコンへのSSOができる
-
-　・SimpleAD
-　　LinuxベースのADサービス。そこまでガチじゃない構成ならこっち。
-　
-　・MicrosoftAD
-　　ガチのADサービス。大規模ならこっち。
 
 ストレージgwの最安接続方法
 QinQ使えるか
 ebs最適化
-クラウドフロント挟める構成パターン
-
-＜参考＞
-・準仮想化と完全仮想化の違い
-
-http://blog.serverworks.co.jp/tech/2018/12/11/concepts-of-direct-connect/
-http://aws-de-media.s3.amazonaws.com/images/AWS_Summit_2018/June7/Coral/AWS%20Direct%20Connect%20Deep%20Dive.pdf
 
 
-＊Ephemeral port ：はかないポート。クライアント側として動的に割り当てられる一時的なポート番号
-　　　　　　　　　 RFC6056では1024以上、IANA/UNIX/Windでは49152以上、Linuxは32768～61000、WinXP/2003以前は1025-5000
 
-
-＜MPLS関連翻訳＞
-
-・VPC over MPLSへの接続を実装するにはどうすればよいですか？
+# MPLS関連翻訳
+- VPC over MPLSへの接続を実装するにはどうすればよいですか？
 　ほとんどのAmazon Web Service（AWS）のお客様は、
 　オンプレミスネットワークとAWSの間で確立するリモート接続の
 　タイプ（VPNまたはAWS Direct Connect）をすばやく判断できます。
@@ -348,7 +257,6 @@ zone apexのレコード、alias x2か、alias.ptrか
 dxリージョン間接続
 bgpで使える属性
 cloud hub
-cloudfrontでudpいけるのか
 ec2のntpサーバを変更する方法
 dnsのtrue/host,resolv
 dxの料金、マルチアカウントの場合誰に課金される
@@ -356,7 +264,6 @@ g2インスタンスとは
 ec2のレイテンシをおさえる構成
 拡張ネットワークドライバ
 mtu
-s3エンドポイントに対するアクセス制御
 aws workspaceの利用に必要なネットワーク要件
 オンプレとのad連携
 QinQ使えるか
@@ -365,7 +272,6 @@ dx申請の流れと、必要な情報
 albだけパブリックに見せる、可能か
 レイテンシルーティングの詳細
 クラウドフロント挟める構成パターン
-aws inspectorとは
 dpi、みるツール
 flowlog、l7まで見れるのか
 
