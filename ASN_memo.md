@@ -12,6 +12,12 @@ https://blog.serverworks.co.jp/I-passed-ans-c01-exam
  - Private Link
 
 ***
+# CloudFront
+ - CloudFrontは、リクエストの最初のバイトを受信したらファイルをユーザに転送し始める仕様。
+ - 
+
+<br>
+***
 # CloudHUB
  - VGWを中継点として複数のCGWをハブスポークで相互通信できるようにしたもの。CGWのAS番号が重複しないようにする必要がある。
 
