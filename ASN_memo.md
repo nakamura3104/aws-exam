@@ -14,6 +14,12 @@ https://blog.serverworks.co.jp/I-passed-ans-c01-exam
 <br>
 
 ***
+# Nat-GW
+ - IPフラグメントをサポートしていない。
+
+<br>
+
+***
 # CloudHSM
  - KMSの専用環境版のイメージ。
  - VPC内にHSM用のインスタンスを作成し、そこに鍵を保管し、参照する。
