@@ -59,7 +59,17 @@ Which solution will meet these requirements?
 
 ## No.5
 ```
+A network engineer needs to find a solution that prevents DNS traffic from being hijacked. 
+The network engineer has configured DNS Security Extensions (DNSSEC) in Amazon Route 53. 
+However, the KeySigningKey status is ACTION_NEEDED. This status causes a connectivity outage for the clients that use DNS validating resolvers.
+
+Which action will resolve this issue?
 ```
+![image](https://user-images.githubusercontent.com/60680996/201682566-5f777147-2dfb-4967-87b3-5e5e67f54345.png)
+
+![image](https://user-images.githubusercontent.com/60680996/201682626-8c8686bf-e713-43ef-a723-f2b057b9e08f.png)
+
+
 ## No.6
 ```
 ```
