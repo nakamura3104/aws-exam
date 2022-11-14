@@ -11,6 +11,7 @@ https://blog.serverworks.co.jp/I-passed-ans-c01-exam
  - CF+S3で署名付きリクエストを使って特定のユーザにのみコンテンツを配信する。
  - CludHubを使ったVGW経由のサイト間通信
  - Private Link
+ - Gateway Load Balancer
 
 <br>
 
