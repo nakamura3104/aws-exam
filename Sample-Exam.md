@@ -72,7 +72,18 @@ Which action will resolve this issue?
 
 ## No.6
 ```
+A security engineer pings an Amazon EC2 instance from a home computer (IP address 203.0.113.12) but does not receive a response. 
+The security engineer finds the following two records in the VPC flow logs:
+
+2 123456789010 eni-1235b8ca123456789 203.0.113.12 172.31.16.139 0 0 1 4 336 1432917027 1432917142 ACCEPT OK
+
+2 123456789010 eni-1235b8ca123456789 172.31.16.139 203.0.113.12 0 0 1 4 336 1432917094 1432917142 REJECT OK
+
+How can the security engineer determine why the home computer did not receive a response from the EC2 instance?
 ```
+![image](https://user-images.githubusercontent.com/60680996/201683367-efea0c36-3a5c-4150-8bc9-f2af9d6da616.png)
+
+
 ## No.7
 ```
 ```
