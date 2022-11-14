@@ -12,6 +12,7 @@ https://blog.serverworks.co.jp/I-passed-ans-c01-exam
  - CludHubを使ったVGW経由のサイト間通信
  - Private Link
  - Gateway Load Balancer
+ - Global Accelarator
 
 <br>
 
