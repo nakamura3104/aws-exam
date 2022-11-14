@@ -27,7 +27,21 @@ Which configuration values does the network engineer need to provide? (Select TW
 
 ## No.3
 ```
+A company plans to migrate applications from its on-premises data center to the AWS Cloud. 
+The company will begin by hosting 20 applications in a single AWS Region. 
+The company plans to use a dedicated AWS account for each application because of a company policy.
+
+These applications require connectivity to the existing on-premises infrastructure for the company's application authentication service. 
+Some of the applications require connectivity to other applications that the company will also move to AWS. 
+After the successful migration of the 20 applications, the next migration phase will migrate 1,000 applications.
+
+Which solution will meet these requirements with the LEAST management overhead?
 ```
+![image](https://user-images.githubusercontent.com/60680996/201681079-1ccb5205-5b82-4340-b424-7083a9bde999.png)
+
+![image](https://user-images.githubusercontent.com/60680996/201681169-d1917cfb-9210-47ec-8aa0-bbe51e665420.png)
+
+
 ## No.4
 ```
 ```
