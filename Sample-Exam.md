@@ -44,7 +44,19 @@ Which solution will meet these requirements with the LEAST management overhead?
 
 ## No.4
 ```
+A company deployed multiple VPCs in the ap-southeast-1 Region, the us-east-1 Region, and the eu-west-2 Region. 
+The company deployed one transit gateway in each Region. 
+The company established an AWS Direct Connect connection from an on-premises data center in ap-southeast-1. 
+A network engineer configured one Direct Connect gateway. 
+The network engineer must complete the configuration of the network path between the on-premises data center and the VPCs in the three Regions.
+
+Which solution will meet these requirements?
 ```
+![image](https://user-images.githubusercontent.com/60680996/201681982-4b1afd23-2d4d-403c-af37-c5c2ed42908f.png)
+
+![image](https://user-images.githubusercontent.com/60680996/201682062-57f8da7b-ad8e-499c-8528-101635881c90.png)
+
+
 ## No.5
 ```
 ```
