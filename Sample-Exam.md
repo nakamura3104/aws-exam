@@ -110,9 +110,23 @@ Which combination of BGP configurations must the network engineer apply to the o
 
 ![image](https://user-images.githubusercontent.com/60680996/202842066-416875af-fbc0-4bf1-bb4d-e67eba8e98fa.png)
 
+→自分の回答があっている気がする。サポートに聞いてみよう。
+
 ## No.9
 ```
+A company has two AWS Direct Connect connections in different AWS Regions between two on-premises data centers and two VPCs. An inter-data center connection connects the two data centers. A network engineer configured two private VIFs, VIF A and VIF B. The network engineer configured VIF A for the data center in the us-east-1 Region. The network engineer configured VIF B for the data center in the us-west-2 Region. Both VIFs terminate on a single Direct Connect gateway. The network engineer set up the on-premises routers to prefer VIF A for the production networks and VIF B for the development networks.
+
+The company needs an active/passive solution that sustains the complete loss of a Direct Connect link and ensures the symmetry of flows between the on-premises networks and AWS.
+
+Which configurations will meet these requirements? (Select TWO.)
 ```
+
+![image](https://user-images.githubusercontent.com/60680996/202842545-ddb4d5ce-d9bb-4605-ae50-4a94e619c1c9.png)
+
+![image](https://user-images.githubusercontent.com/60680996/202842564-ea70f457-ae61-49ad-80c3-0af1a745c353.png)
+
+![image](https://user-images.githubusercontent.com/60680996/202842582-bdb9d3a1-bfb0-4c9d-995f-7eaf5e493937.png)
+
 ## No.10
 ```
 ```
