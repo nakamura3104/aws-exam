@@ -153,7 +153,16 @@ Which combination of steps should the company take to ensure that connectivity t
 
 ## No.12
 ```
+A company has a static website. The company updates the website files quarterly. Customers must use secure connections (HTTPS) to connect to the website. The company wants to use its own domain name for the website (www.example.com). The company creates an Amazon S3 bucket to store the website files. The company creates a wildcard certificate in AWS Certificate Manager (ACM) for example.com.
+
+Which solution will meet these requirements?
 ```
+
+![image](https://user-images.githubusercontent.com/60680996/202843003-5a604888-8880-4721-922d-48f1ebec50b1.png)
+
+![image](https://user-images.githubusercontent.com/60680996/202843031-6e602a91-cc14-4ccf-bc8f-69c8d94ca0dd.png)
+
+
 ## No.13
 ```
 ```
