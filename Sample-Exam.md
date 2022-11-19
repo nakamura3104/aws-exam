@@ -193,4 +193,10 @@ Which combination of steps are necessary to establish the required communication
 
 ## No.15
 ```
+A company uses AWS to host all its applications. The company has isolated each application in its own VPC. The company also isolates different environments such as development, test, and production in separate VPCs. A network engineer needs to automate the creation of VPCs to enforce the company's network and security standards. Additionally, the company requires the CIDR range for each VPC to be unique.
+
+Which solution will meet these requirements?
 ```
+![image](https://user-images.githubusercontent.com/60680996/202843483-10703d8e-720e-46ac-8774-ff6718ffad8f.png)
+
+![image](https://user-images.githubusercontent.com/60680996/202843495-cad03ff5-5811-471e-bc85-3245b996cb38.png)
