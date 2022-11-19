@@ -101,7 +101,15 @@ Which solution will meet these requirements?
 
 ## No.8
 ```
+A network engineer manages two AWS Direct Connect connections between a company's on-premises equipment and AWS. Each connection has a public VIF that the network engineer configured with a private Autonomous System Number (ASN). The network engineer wants to configure active/passive routing between the Direct Connect connections to access AWS public endpoints.
+
+Which combination of BGP configurations must the network engineer apply to the on-premises equipment? (Select TWO.)
 ```
+
+![image](https://user-images.githubusercontent.com/60680996/202842041-e9ab67d0-d031-4e67-a2e4-711a952d7926.png)
+
+![image](https://user-images.githubusercontent.com/60680996/202842066-416875af-fbc0-4bf1-bb4d-e67eba8e98fa.png)
+
 ## No.9
 ```
 ```
