@@ -179,7 +179,18 @@ Which action will restore connectivity?
 
 ## No.14
 ```
+A company deployed an application in several private subnets within a VPC. Each subnet resides in one of the three Availability Zones in an AWS Region. A network engineer must give the application the ability to download updates from the internet. The network engineer deployed a NAT gateway in a single public subnet. The company configured the application with IPv6 addresses. The application needs to connect only to IPv6 update services.
+
+Which combination of steps are necessary to establish the required communication? (Select TWO.)
 ```
+
+![image](https://user-images.githubusercontent.com/60680996/202843357-69fd1a0e-7b8a-428d-b8a9-4be7ff1179ee.png)
+
+![image](https://user-images.githubusercontent.com/60680996/202843371-18710bea-731b-4743-ae07-b248bf290a2a.png)
+
+![image](https://user-images.githubusercontent.com/60680996/202843378-4ac3d04d-dff7-4bde-8e06-ac289e8ae617.png)
+
+
 ## No.15
 ```
 ```
