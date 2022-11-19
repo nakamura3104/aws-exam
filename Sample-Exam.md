@@ -165,7 +165,18 @@ Which solution will meet these requirements?
 
 ## No.13
 ```
+A company has an AWS Direct Connect connection between an on-premises data center and AWS. To access public AWS endpoints, a network engineer has configured a public VIF. The company configured the on-premises router where the public VIF terminates to perform port address translation (PAT) to the public peer IP address. To know the current list of prefixes that AWS will advertise, the network engineer downloads the AWS IP ranges in JSON format and configures filtering on the on-premises router accordingly.
+
+A maintenance event disrupted connectivity between the on-premises data center and AWS. When the maintenance event ended, BGP peering was up, but connectivity was not re-established.
+
+Which action will restore connectivity?
 ```
+
+![image](https://user-images.githubusercontent.com/60680996/202843157-7bcc1853-ee9c-4518-8607-73f4f1ab5de5.png)
+
+![image](https://user-images.githubusercontent.com/60680996/202843167-f0dcfd0e-9e39-4ba1-8be4-a4250b9c7c2b.png)
+
+
 ## No.14
 ```
 ```
