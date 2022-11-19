@@ -98,14 +98,15 @@ set protocols bgp 65000 neighbor 169.254.233.169 timers keepalive '10'
 
 > ## Note
 >  - bgp soft reconfigreationの設定がVyOS1.2より変更となっているため注意
-> 
->   [VyOS1.2.x系の設定で死ぬほどハマった話](https://note.com/tech_share/n/nb2cd20a433fd)
+>    - [VyOS1.2.x系の設定で死ぬほどハマった話](https://note.com/tech_share/n/nb2cd20a433fd)
 > 
 > ```
 > set protocols bgp 65000 neighbor 169.254.233.169 address-family ipv4-unicast soft-reconfiguration inbound
 > # この事前設定により、ソフトウェアは、アップデートがインバウンド ポリシーによって受け入れられるかどうかに関係なく、受信したすべてのアップデートを変更せずに保存します。 
-> アップデートの保存は大量のメモリを要するため、可能な限り回避する必要があります。
+> # アップデートの保存は大量のメモリを要するため、可能な限り回避する必要があります。
 > ```
+> - VyOSでのNATトラバーサル設定
+>   - [https://changineer.info/network/vyatta/vyatta_ipsec_nat.html](https://changineer.info/network/vyatta/vyatta_ipsec_nat.html)
 
 ### downloaded config as VyYatta
 ```
