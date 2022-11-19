@@ -141,7 +141,16 @@ Which solution will resolve this connectivity issue?
 
 ## No.11
 ```
+A company's security team must encrypt all data that leaves the company's on-premises data center at the network layer. Data transmission must use dedicated connections. The security team must also centrally log all traffic flow in Amazon VPC environments. The company orders an AWS Direct Connect connection to build out this design.
+
+Which combination of steps should the company take to ensure that connectivity to AWS meets these security requirements? (Select TWO.)
 ```
+
+![image](https://user-images.githubusercontent.com/60680996/202842902-38a08235-6bd6-4251-a752-6b65a2843eb4.png)
+
+![image](https://user-images.githubusercontent.com/60680996/202842915-dfec5097-e20c-4fc1-b596-48b367d04f68.png)
+
+
 ## No.12
 ```
 ```
