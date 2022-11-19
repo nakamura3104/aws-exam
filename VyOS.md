@@ -50,7 +50,7 @@ PING 8.8.8.8 (8.8.8.8): 56 data bytes
 # STEP 3
 Configure of IPSEC
 
-### Configration for VyOS
+### Configration for VyOS IPSec-1
 ```
 //IKE
 set vpn ipsec ike-group AWS lifetime '28800'
@@ -83,7 +83,29 @@ set vpn ipsec ike-group AWS dead-peer-detection timeout '30'
 set interfaces vti vti0 address '169.254.233.170/30'
 set interfaces vti vti0 description 'VPC tunnel 1'
 set interfaces vti vti0 mtu '1436'
+
+//For NAT-Travarsal
+set vpn ipsec site-to-site peer 3.115.150.60 authentication id '110.134.213.239'
+set vpn ipsec site-to-site peer 3.115.150.60 authentication remote-id '3.115.150.60'
+set vpn ipsec site-to-site peer 3.115.150.60 local-address '10.0.2.15'
+
+//BGP Config
+set protocols bgp 65000 neighbor 169.254.233.169 address-family ipv4-unicast soft-reconfiguration inbound
+set protocols bgp 65000 neighbor 169.254.233.169 remote-as '64512'
+set protocols bgp 65000 neighbor 169.254.233.169 timers holdtime '30'
+set protocols bgp 65000 neighbor 169.254.233.169 timers keepalive '10'
 ```
+
+> ## Note
+>  - bgp soft reconfigreationの設定がVyOS1.2より変更となっているため注意
+> 
+>   [VyOS1.2.x系の設定で死ぬほどハマった話](https://note.com/tech_share/n/nb2cd20a433fd)
+> 
+> ```
+> set protocols bgp 65000 neighbor 169.254.233.169 address-family ipv4-unicast soft-reconfiguration inbound
+> # この事前設定により、ソフトウェアは、アップデートがインバウンド ポリシーによって受け入れられるかどうかに関係なく、受信したすべてのアップデートを変更せずに保存します。 
+> アップデートの保存は大量のメモリを要するため、可能な限り回避する必要があります。
+> ```
 
 ### downloaded config as VyYatta
 ```
