@@ -86,7 +86,19 @@ How can the security engineer determine why the home computer did not receive a 
 
 ## No.7
 ```
+A financial company wants to establish a private connection between the company's offices and its resources on AWS. The company has many VPCs, Amazon EC2 instances, and databases in the us-east-1 Region and in the us-west-2 Region. A network engineer determines that the company needs 7–8 Gbps of bandwidth between the company's corporate network resources and AWS. The network engineer needs a solution that will provide high resiliency for the company's critical workloads.
+
+Which solution will meet these requirements?
 ```
+
+![image](https://user-images.githubusercontent.com/60680996/202841913-87d90bfd-2b1e-491d-bb2d-4d589dcd795c.png)
+
+![image](https://user-images.githubusercontent.com/60680996/202841932-d25a985a-10d8-4a5b-a58b-4f65dea14a9e.png)
+
+![image](https://user-images.githubusercontent.com/60680996/202841947-24cacd1e-3f0b-4bf3-b159-cc9a1dfd7a6f.png)
+
+
+
 ## No.8
 ```
 ```
