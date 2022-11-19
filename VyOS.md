@@ -49,6 +49,43 @@ PING 8.8.8.8 (8.8.8.8): 56 data bytes
 
 # STEP 3
 Configure of IPSEC
+
+### Configration for VyOS
+```
+//IKE
+set vpn ipsec ike-group AWS lifetime '28800'
+set vpn ipsec ike-group AWS proposal 1 dh-group '2'
+set vpn ipsec ike-group AWS proposal 1 encryption 'aes128'
+set vpn ipsec ike-group AWS proposal 1 hash 'sha1'
+set vpn ipsec site-to-site peer 3.115.150.60 authentication mode 'pre-shared-secret'
+set vpn ipsec site-to-site peer 3.115.150.60 authentication pre-shared-secret 'Xl2oWZh8DR3L2uQaZUx6Jr9iJHLzDQDz'
+set vpn ipsec site-to-site peer 3.115.150.60 description 'VPC tunnel 1'
+set vpn ipsec site-to-site peer 3.115.150.60 ike-group 'AWS'
+set vpn ipsec site-to-site peer 3.115.150.60 local-address '110.134.213.239'
+set vpn ipsec site-to-site peer 3.115.150.60 vti bind 'vti0'
+set vpn ipsec site-to-site peer 3.115.150.60 vti esp-group 'AWS'
+
+//IPSec
+set vpn ipsec ipsec-interfaces interface 'eth0'
+set vpn ipsec esp-group AWS compression 'disable'
+set vpn ipsec esp-group AWS lifetime '3600'
+set vpn ipsec esp-group AWS mode 'tunnel'
+set vpn ipsec esp-group AWS pfs 'enable'
+set vpn ipsec esp-group AWS proposal 1 encryption 'aes128'
+set vpn ipsec esp-group AWS proposal 1 hash 'sha1'
+
+//IPSec Dead Peer Detection
+set vpn ipsec ike-group AWS dead-peer-detection action 'restart'
+set vpn ipsec ike-group AWS dead-peer-detection interval '15'
+set vpn ipsec ike-group AWS dead-peer-detection timeout '30'
+
+//Tunnel Interface
+set interfaces vti vti0 address '169.254.233.170/30'
+set interfaces vti vti0 description 'VPC tunnel 1'
+set interfaces vti vti0 mtu '1436'
+```
+
+### downloaded config as VyYatta
 ```
 ! --------------------------------------------------------------------------------
 ! IPSec Tunnel #1
