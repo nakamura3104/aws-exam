@@ -129,7 +129,16 @@ Which configurations will meet these requirements? (Select TWO.)
 
 ## No.10
 ```
+A company recently established an AWS Direct Connect connection from its on-premises data center to AWS. A network engineer blocked all traffic that is destined for Amazon DynamoDB over the company's gateway to the internet at the company's on-premises firewall. DynamoDB traffic must travel across only the Direct Connect connection. Currently, no one in the on-premises data center can access DynamoDB.
+
+Which solution will resolve this connectivity issue?
 ```
+
+![image](https://user-images.githubusercontent.com/60680996/202842753-4413528a-205f-43bf-8a64-5f05c001aa9e.png)
+
+![image](https://user-images.githubusercontent.com/60680996/202842768-89c53d7b-4263-4cbd-90fc-3090e0cdcf03.png)
+
+
 ## No.11
 ```
 ```
