@@ -1,15 +1,34 @@
-# STEP 1
-VyOS initial Settings
+# 0. VyOS Version
+```
+vyos@vyos:~$ show version
+Version:          VyOS 1.4-rolling-202211190627
+Release train:    current
 
+Built by:         autobuild@vyos.net
+Built on:         Sat 19 Nov 2022 06:27 UTC
+Build UUID:       687dfd47-11ca-4c0c-8045-944ed60279be
+Build commit ID:  cd6f8ab1040139
+
+Architecture:     x86_64
+Boot via:         installed image
+System type:      KVM guest
+
+Hardware vendor:  innotek GmbH
+Hardware model:   VirtualBox
+Hardware S/N:     0
+Hardware UUID:    91d658fc-16f6-074b-b5a6-59f4f5c3c14b
+
+Copyright:        VyOS maintainers and contributors
+```
+
+# 1. VyOS initial Settings
 ### Virtual Box
 * Enable LAN3 as Host Only Adaptor
 
 ### VyOS Config
 ```
 //After boot
-$ install image
-* 各種設定の後、CDを取り出し再起動。
-
+$ install image //各種設定の後、CDを取り出し再起動。
 
 //SSH Settings
 set interfaces ethernet eth2 address '169.254.153.1/16'
@@ -18,9 +37,7 @@ set service ssh
 set system time-zone 'Asia/Tokyo'
 ```
 
-# STEP 2
-Connect to Internet
-
+# 2. Connect to Internet
 ### Virtual Box
 * Enable LAN1 as NAT
 
@@ -31,74 +48,62 @@ set interfaces ethernet eth0 address 'dhcp'
 
 //Routing Table
 vyos@vyos:~$ show ip route
-Codes: K - kernel route, C - connected, S - static, R - RIP,
-       O - OSPF, I - IS-IS, B - BGP, E - EIGRP, N - NHRP,
-       T - Table, v - VNC, V - VNC-Direct, A - Babel, D - SHARP,
-       F - PBR, f - OpenFabric,
-       > - selected route, * - FIB route, q - queued route, r - rejected route
-
+~~
 S>* 0.0.0.0/0 [210/0] via 10.0.2.2, eth0, 00:00:11
 C>* 10.0.2.0/24 is directly connected, eth0, 00:00:13
 C>* 169.254.0.0/16 is directly connected, eth2, 00:07:14
 
 //Ping
-vyos@vyos:~$ ping 8.8.8.
-/bin/ping: unknown host
 vyos@vyos:~$ ping 8.8.8.8
 PING 8.8.8.8 (8.8.8.8): 56 data bytes
 64 bytes from 8.8.8.8: icmp_seq=0 ttl=56 time=27.054 ms
 64 bytes from 8.8.8.8: icmp_seq=1 ttl=56 time=17.119 ms
-^C--- 8.8.8.8 ping statistics ---
-2 packets transmitted, 2 packets
+
 ```
 
-# STEP 3
-Configure of IPSEC
+# 3. Configure of IPSEC
+> ## VyOS 1.4から諸々設定が変更となっているため注意！
 
 ### Configration for VyOS IPSec-1
 ```
-//IKE
-set vpn ipsec ike-group AWS lifetime '28800'
-set vpn ipsec ike-group AWS proposal 1 dh-group '2'
-set vpn ipsec ike-group AWS proposal 1 encryption 'aes128'
-set vpn ipsec ike-group AWS proposal 1 hash 'sha1'
-set vpn ipsec site-to-site peer 3.115.150.60 authentication mode 'pre-shared-secret'
-set vpn ipsec site-to-site peer 3.115.150.60 authentication pre-shared-secret 'Xl2oWZh8DR3L2uQaZUx6Jr9iJHLzDQDz'
-set vpn ipsec site-to-site peer 3.115.150.60 description 'VPC tunnel 1'
-set vpn ipsec site-to-site peer 3.115.150.60 ike-group 'AWS'
-set vpn ipsec site-to-site peer 3.115.150.60 local-address '110.134.213.239'
-set vpn ipsec site-to-site peer 3.115.150.60 vti bind 'vti0'
-set vpn ipsec site-to-site peer 3.115.150.60 vti esp-group 'AWS'
-
-//IPSec
-set vpn ipsec ipsec-interfaces interface 'eth0'
-set vpn ipsec esp-group AWS compression 'disable'
+## ESP & IKE
 set vpn ipsec esp-group AWS lifetime '3600'
 set vpn ipsec esp-group AWS mode 'tunnel'
 set vpn ipsec esp-group AWS pfs 'enable'
 set vpn ipsec esp-group AWS proposal 1 encryption 'aes128'
 set vpn ipsec esp-group AWS proposal 1 hash 'sha1'
-
-//IPSec Dead Peer Detection
 set vpn ipsec ike-group AWS dead-peer-detection action 'restart'
 set vpn ipsec ike-group AWS dead-peer-detection interval '15'
 set vpn ipsec ike-group AWS dead-peer-detection timeout '30'
+set vpn ipsec ike-group AWS lifetime '28800'
+set vpn ipsec ike-group AWS proposal 1 dh-group '2'
+set vpn ipsec ike-group AWS proposal 1 encryption 'aes128'
+set vpn ipsec ike-group AWS proposal 1 hash 'sha1'
 
-//Tunnel Interface
-set interfaces vti vti0 address '169.254.233.170/30'
+## vti
+set interfaces vti vti0 address '169.254.244.110/30'
 set interfaces vti vti0 description 'VPC tunnel 1'
 set interfaces vti vti0 mtu '1436'
 
-//For NAT-Travarsal
-set vpn ipsec site-to-site peer 3.115.150.60 authentication id '110.134.213.239'
-set vpn ipsec site-to-site peer 3.115.150.60 authentication remote-id '3.115.150.60'
-set vpn ipsec site-to-site peer 3.115.150.60 local-address '10.0.2.15'
+## IPSec
+set vpn ipsec site-to-site peer AWS authentication mode 'pre-shared-secret'
+set vpn ipsec site-to-site peer AWS authentication pre-shared-secret 'UMKp9lYLJ1lZ1nU.CqhP7vTFHl0rcH1L'
+set vpn ipsec site-to-site peer AWS description 'VPC tunnel 1'
+set vpn ipsec site-to-site peer AWS ike-group 'AWS'
+set vpn ipsec site-to-site peer AWS local-address '10.0.2.15'
+set vpn ipsec site-to-site peer AWS remote-address '18.176.89.173'
+set vpn ipsec site-to-site peer AWS vti bind 'vti0'
+set vpn ipsec site-to-site peer AWS vti esp-group 'AWS'
+### for NAT-T
+set vpn ipsec site-to-site peer AWS authentication local-id '110.134.213.239'
+set vpn ipsec site-to-site peer AWS authentication remote-id '18.176.89.173'
 
 //BGP Config
-set protocols bgp 65000 neighbor 169.254.233.169 address-family ipv4-unicast soft-reconfiguration inbound
-set protocols bgp 65000 neighbor 169.254.233.169 remote-as '64512'
-set protocols bgp 65000 neighbor 169.254.233.169 timers holdtime '30'
-set protocols bgp 65000 neighbor 169.254.233.169 timers keepalive '10'
+set protocols bgp system-as '65000'
+set protocols bgp neighbor 169.254.244.109 address-family ipv4-unicast soft-reconfiguration inbound
+set protocols bgp neighbor 169.254.244.109 remote-as '64512'
+set protocols bgp neighbor 169.254.244.109 timers holdtime '30'
+set protocols bgp neighbor 169.254.244.109 timers keepalive '10'
 ```
 
 > ## Note
