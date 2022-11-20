@@ -119,3 +119,27 @@ set protocols bgp address-family ipv4-unicast network 10.0.2.0/24
 > - VyOSでのNATトラバーサル設定
 >   - [https://changineer.info/network/vyatta/vyatta_ipsec_nat.html](https://changineer.info/network/vyatta/vyatta_ipsec_nat.html)
 
+# 4. AWS Setting
+ - ルートテーブルでルート伝搬（VGWが受信したルートをルートテーブルに反映させる）を有効化
+
+![image](https://user-images.githubusercontent.com/60680996/202896260-87468d18-a6ce-4ac7-b0be-c6e9eb1dc114.png)
+
+
+# 5. 確認
+### AWS => VyOS
+```
+:~/environment/ans-exam (master) $ ping 10.0.2.15
+PING 10.0.2.15 (10.0.2.15) 56(84) bytes of data.
+64 bytes from 10.0.2.15: icmp_seq=1 ttl=64 time=19.6 ms
+64 bytes from 10.0.2.15: icmp_seq=2 ttl=64 time=18.2 ms
+```
+
+### VyOS => AWS
+```
+vyos@vyos:~$ ping 10.99.31.172 source-address 10.0.2.15
+PING 10.99.31.172 (10.99.31.172) from 10.0.2.15 : 56(84) bytes of data.
+64 bytes from 10.99.31.172: icmp_seq=1 ttl=254 time=16.3 ms
+64 bytes from 10.99.31.172: icmp_seq=2 ttl=254 time=30.0 ms
+64 bytes from 10.99.31.172: icmp_seq=3 ttl=254 time=24.4 ms
+64 bytes from 10.99.31.172: icmp_seq=4 ttl=254 time=18.3 ms
+```
