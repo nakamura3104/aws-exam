@@ -2,67 +2,32 @@
 ### Diagram
 ![image](https://user-images.githubusercontent.com/60680996/202897297-814da4e2-1754-4859-bf2c-7f5e8bd9e9cd.png)
 
-### VyOS Version
-```
-vyos@vyos:~$ show version
-Version:          VyOS 1.4-rolling-202211190627
-Release train:    current
 
-Built by:         autobuild@vyos.net
-Built on:         Sat 19 Nov 2022 06:27 UTC
-Build UUID:       687dfd47-11ca-4c0c-8045-944ed60279be
-Build commit ID:  cd6f8ab1040139
-
-Architecture:     x86_64
-Boot via:         installed image
-System type:      KVM guest
-
-Hardware vendor:  innotek GmbH
-Hardware model:   VirtualBox
-Hardware S/N:     0
-Hardware UUID:    91d658fc-16f6-074b-b5a6-59f4f5c3c14b
-
-Copyright:        VyOS maintainers and contributors
-```
-
-# 1. VyOS initial Settings
-### Virtual Box
-* Enable LAN3 as Host Only Adaptor
-
+# 1. Add Secondary VPN Config
 ### VyOS Config
 ```
-//After boot
-$ install image //各種設定の後、CDを取り出し再起動。
+## IPSec
+set vpn ipsec site-to-site peer AWS_backup authentication local-id '110.134.213.239'
+set vpn ipsec site-to-site peer AWS_backup authentication mode 'pre-shared-secret'
+set vpn ipsec site-to-site peer AWS_backup authentication pre-shared-secret '8dBpXucERWygH7ymX0VWzZx1gCQboPav'
+set vpn ipsec site-to-site peer AWS_backup authentication remote-id '54.248.82.123'
+set vpn ipsec site-to-site peer AWS_backup description 'VPC tunnel 2'
+set vpn ipsec site-to-site peer AWS_backup ike-group 'AWS'
+set vpn ipsec site-to-site peer AWS_backup local-address '10.0.2.15'
+set vpn ipsec site-to-site peer AWS_backup remote-address '54.248.82.123'
+set vpn ipsec site-to-site peer AWS_backup vti bind 'vti1'
+set vpn ipsec site-to-site peer AWS_backup vti esp-group 'AWS'
 
-//SSH Settings
-set interfaces ethernet eth2 address '169.254.153.1/16'
-set interfaces ethernet eth2 description 'HOST-Only'
-set service ssh 
-set system time-zone 'Asia/Tokyo'
-```
+## VTI
+set interfaces vti vti1 address '169.254.61.114/30'
+set interfaces vti vti1 description 'VPC tunnel 2'
+set interfaces vti vti1 mtu '1436'
 
-# 2. Connect to Internet
-### Virtual Box
-* Enable LAN1 as NAT
-
-### VyOS Config
-```
-//ADD
-set interfaces ethernet eth0 address 'dhcp'
-
-//Routing Table
-vyos@vyos:~$ show ip route
-~~
-S>* 0.0.0.0/0 [210/0] via 10.0.2.2, eth0, 00:00:11
-C>* 10.0.2.0/24 is directly connected, eth0, 00:00:13
-C>* 169.254.0.0/16 is directly connected, eth2, 00:07:14
-
-//Ping
-vyos@vyos:~$ ping 8.8.8.8
-PING 8.8.8.8 (8.8.8.8): 56 data bytes
-64 bytes from 8.8.8.8: icmp_seq=0 ttl=56 time=27.054 ms
-64 bytes from 8.8.8.8: icmp_seq=1 ttl=56 time=17.119 ms
-
+## BGP Config
+set protocols bgp neighbor 169.254.61.113 address-family ipv4-unicast soft-reconfiguration inbound
+set protocols bgp neighbor 169.254.61.113 remote-as '64512'
+set protocols bgp neighbor 169.254.61.113 timers holdtime '30'
+set protocols bgp neighbor 169.254.61.113 timers keepalive '10'
 ```
 
 # 3. Configure of IPSEC
