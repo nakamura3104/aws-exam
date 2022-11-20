@@ -15,6 +15,7 @@ $ install image
 set interfaces ethernet eth2 address '169.254.153.1/16'
 set interfaces ethernet eth2 description 'HOST-Only'
 set service ssh 
+set system time-zone 'Asia/Tokyo'
 ```
 
 # STEP 2
