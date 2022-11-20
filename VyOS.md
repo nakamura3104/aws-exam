@@ -1,4 +1,8 @@
-# 0. VyOS Version
+# 0. Overview
+### Diagram
+![image](https://user-images.githubusercontent.com/60680996/202897297-814da4e2-1754-4859-bf2c-7f5e8bd9e9cd.png)
+
+### VyOS Version
 ```
 vyos@vyos:~$ show version
 Version:          VyOS 1.4-rolling-202211190627
