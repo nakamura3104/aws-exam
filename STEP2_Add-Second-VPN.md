@@ -33,8 +33,17 @@ set protocols bgp neighbor 169.254.61.113 timers keepalive '10'
 ```
 
 # 2. Traffic Engineering
+
+## AWS（VGW）の優先順位
+1. ロンゲストマッチ（宛先ネットワークがより詳細に絞り込まれているルート）
+2. DirectConnectとSite to Site VPNではDirectConnectが優先
+3. Site to Site VPNで静的ルートとBGPルートでは、静的ルートが優先
+4. BGPルートの中ではAS PASHが最短のものが優先
+5. AS PATHが同じ場合はMEDが最小のものが優先
+
+## 検証
  - 初期状態
-   - MED属性（Metric）が200であるBackup経路（vti1）が優先される。
+   - AWS側から通知されるMED属性（Metric）が200であるBackup経路（vti1）が優先される。[参考](https://dev.classmethod.jp/articles/control-bgp-route-on-site-to-site-vpn/)
    - Backup経路をshutdown→復旧してもトラフィックが戻ってくる。
    
 ```
