@@ -64,12 +64,12 @@ RPKI validation codes: V valid, I invalid, N Not found
 Displayed  2 routes and 3 total paths
 ```
 
-## VyOS => AWS の経路をMain系優先に
+## [TE1]VyOS => AWS の経路をMain系優先に
  - Weight属性を使う
 > 特定のパスを選択するために使用します。 Weightは、ルータローカルでのみ使用され、他のBGPルータとは交換されません。 同じプレフィックスに対して、値が大きい方のルートを優先します。
  
 ```
-vyos@vyos# set protocols bgp neighbor 169.254.234.49 address-family ipv4-unicast weight 300
+set protocols bgp neighbor 169.254.234.49 address-family ipv4-unicast weight 300
 ```
 
  - 変更後の状態
@@ -82,7 +82,43 @@ vyos@vyos:~$ show ip bgp
 *>                  169.254.234.49         200           300 64512 i  ##weight 300
 ```
 
-> AWS側から見たMain（オレンジの線）のInが増加
+> AWS側から見たIn方向のMain経路（オレンジの線）にトラフィックが切り替わる
 ![image](https://user-images.githubusercontent.com/60680996/203072448-2f758754-491d-46f2-abf6-fa8c5319dd0f.png)
 
+
+## [TE2]VyOS <= AWS の経路をMain系優先に
+- AS PATH Prependを使う
+> 広報するルートにAS PATHを追加することで相手に遠い経路情報と見せる。
+
+```
+set policy route-map VPC-Tunnel-2-OUT rule 10 action permit
+set policy route-map VPC-Tunnel-2-OUT rule 10 set as-path prepend 65000
+set protocols bgp neighbor 169.254.61.113 address-family ipv4-unicast route-map export VPC-Tunnel-2-OUT
+```
+
+- 変更後の状態
+```
+//Main
+vyos@vyos:~$ show ip bgp ipv4 unicast neighbors 169.254.234.49 advertised-routes
+~~
+   Network          Next Hop            Metric LocPrf Weight Path
+*> 10.0.2.0/24      0.0.0.0                  0         32768 i
+*> 10.99.0.0/16     0.0.0.0                              300 64512 i
+
+Total number of prefixes 2
+
+
+
+//Backup
+vyos@vyos:~$ show ip bgp ipv4 unicast neighbors 169.254.61.113 advertised-routes
+~~
+   Network          Next Hop            Metric LocPrf Weight Path
+*> 10.0.2.0/24      0.0.0.0                  0         32768 65000 i
+*> 10.99.0.0/16     0.0.0.0                              300 65000 64512 i
+
+Total number of prefixes 2
+```
+
+> AWS側から見たOut方向のMain経路（水色の線）にトラフィックが切り替わる
+![image](https://user-images.githubusercontent.com/60680996/203080705-201bd86f-c72a-4ed3-892b-ceaa71295113.png)
 
