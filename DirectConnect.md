@@ -9,11 +9,7 @@
  - dxリージョン間接続→DirectConnectGatewayとか使わないとできない
 
 # DirectConnect関連
-　－クロスコネクトでユーザのルータに必要な使用は、.1q対応、BGPのmd5認証、シングルモード対応
-　－DirectConnectGateway
-　　・プライベートVIF経由の接続で全リージョンの複数VPCと閉域で接続できるサービス
-　　・DirectConnectGatewayを用いたVPC間の接続、VIFから同じDCGに接続する別のVIF間の通信はNG
-　　・あくまでVIF to VPCの通信のみ
+ - クロスコネクトでユーザのルータに必要な使用は、.1q対応、BGPのmd5認証、シングルモード対応
 　－通常利用
 　　http://corporate-tech-blog-wp.s3-website-ap-northeast-1.amazonaws.com/tech/wp-content/uploads/2018/12/DX_Normal.png
 　－通常じゃない利用、Hosted Virtual Interface
