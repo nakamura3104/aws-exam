@@ -63,3 +63,26 @@ RPKI validation codes: V valid, I invalid, N Not found
 
 Displayed  2 routes and 3 total paths
 ```
+
+## VyOS => AWS の経路をMain系優先に
+ - Weight属性を使う
+> 特定のパスを選択するために使用します。 Weightは、ルータローカルでのみ使用され、他のBGPルータとは交換されません。 同じプレフィックスに対して、値が大きい方のルートを優先します。
+ 
+```
+vyos@vyos# set protocols bgp neighbor 169.254.234.49 address-family ipv4-unicast weight 300
+```
+
+ - 変更後の状態
+```
+vyos@vyos:~$ show ip bgp
+～～
+   Network          Next Hop            Metric LocPrf Weight Path
+*> 10.0.2.0/24      0.0.0.0                  0         32768 i
+*  10.99.0.0/16     169.254.61.113         100             0 64512 i
+*>                  169.254.234.49         200           300 64512 i  ##weight 300
+```
+
+> AWS側から見たMain（オレンジの線）のInが増加
+![image](https://user-images.githubusercontent.com/60680996/203072448-2f758754-491d-46f2-abf6-fa8c5319dd0f.png)
+
+
