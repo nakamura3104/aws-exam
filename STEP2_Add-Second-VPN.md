@@ -122,3 +122,92 @@ Total number of prefixes 2
 > AWS側から見たOut方向のMain経路（水色の線）にトラフィックが切り替わる
 ![image](https://user-images.githubusercontent.com/60680996/203080705-201bd86f-c72a-4ed3-892b-ceaa71295113.png)
 
+# 完成系
+
+![image](https://user-images.githubusercontent.com/60680996/203082426-d63901e2-7316-421b-bca8-1cf906cbfc07.png)
+
+<details>
+<summary>config</summary>
+
+ ```
+ set interfaces ethernet eth0 address 'dhcp'
+set interfaces ethernet eth0 hw-id '08:00:27:ca:37:b8'
+set interfaces ethernet eth1 hw-id '08:00:27:f5:29:18'
+set interfaces ethernet eth2 address '169.254.153.1/16'
+set interfaces ethernet eth2 description 'Host-Only'
+set interfaces ethernet eth2 hw-id '08:00:27:ae:2e:6a'
+set interfaces loopback lo
+set interfaces vti vti0 address '169.254.234.50/30'
+set interfaces vti vti0 description 'VPC tunnel 1'
+set interfaces vti vti0 mtu '1436'
+set interfaces vti vti1 address '169.254.61.114/30'
+set interfaces vti vti1 description 'VPC tunnel 2'
+set interfaces vti vti1 mtu '1436'
+set policy route-map VPC-Tunnel-2-OUT rule 10 action 'permit'
+set policy route-map VPC-Tunnel-2-OUT rule 10 set as-path prepend '65000'
+set protocols bgp address-family ipv4-unicast network 10.0.2.0/24
+set protocols bgp neighbor 169.254.61.113 address-family ipv4-unicast route-map export 'VPC-Tunnel-2-OUT'
+set protocols bgp neighbor 169.254.61.113 address-family ipv4-unicast soft-reconfiguration inbound
+set protocols bgp neighbor 169.254.61.113 remote-as '64512'
+set protocols bgp neighbor 169.254.61.113 timers holdtime '30'
+set protocols bgp neighbor 169.254.61.113 timers keepalive '10'
+set protocols bgp neighbor 169.254.234.49 address-family ipv4-unicast soft-reconfiguration inbound
+set protocols bgp neighbor 169.254.234.49 address-family ipv4-unicast weight '300'
+set protocols bgp neighbor 169.254.234.49 remote-as '64512'
+set protocols bgp neighbor 169.254.234.49 timers holdtime '30'
+set protocols bgp neighbor 169.254.234.49 timers keepalive '10'
+set protocols bgp system-as '65000'
+set service ssh
+set system config-management commit-revisions '100'
+set system conntrack modules ftp
+set system conntrack modules h323
+set system conntrack modules nfs
+set system conntrack modules pptp
+set system conntrack modules sip
+set system conntrack modules sqlnet
+set system conntrack modules tftp
+set system console device ttyS0 speed '115200'
+set system host-name 'vyos'
+set system login user vyos authentication encrypted-password '$6$NY2pqN1he4xk.Jdf$CHTp6hnMJr.SHxgQXX2ec6kc2iqMVEvyCjKvZVSTPZ7Cq3vMu6kgtDeczPFA4.K2jRAIWsb9Td3/YOFMNK63F/'
+set system login user vyos authentication plaintext-password ''
+set system ntp server time1.vyos.net
+set system ntp server time2.vyos.net
+set system ntp server time3.vyos.net
+set system syslog global facility all level 'info'
+set system syslog global facility protocols level 'debug'
+set system time-zone 'Asia/Tokyo'
+set vpn ipsec esp-group AWS lifetime '3600'
+set vpn ipsec esp-group AWS mode 'tunnel'
+set vpn ipsec esp-group AWS pfs 'enable'
+set vpn ipsec esp-group AWS proposal 1 encryption 'aes128'
+set vpn ipsec esp-group AWS proposal 1 hash 'sha1'
+set vpn ipsec ike-group AWS dead-peer-detection action 'restart'
+set vpn ipsec ike-group AWS dead-peer-detection interval '15'
+set vpn ipsec ike-group AWS dead-peer-detection timeout '30'
+set vpn ipsec ike-group AWS lifetime '28800'
+set vpn ipsec ike-group AWS proposal 1 dh-group '2'
+set vpn ipsec ike-group AWS proposal 1 encryption 'aes128'
+set vpn ipsec ike-group AWS proposal 1 hash 'sha1'
+set vpn ipsec site-to-site peer AWS authentication local-id '110.134.213.239'
+set vpn ipsec site-to-site peer AWS authentication mode 'pre-shared-secret'
+set vpn ipsec site-to-site peer AWS authentication pre-shared-secret '8UvZ3un9O64TjRtFN47VILNyz1LP0rrz'
+set vpn ipsec site-to-site peer AWS authentication remote-id '52.194.154.6'
+set vpn ipsec site-to-site peer AWS description 'VPC tunnel 1'
+set vpn ipsec site-to-site peer AWS ike-group 'AWS'
+set vpn ipsec site-to-site peer AWS local-address '10.0.2.15'
+set vpn ipsec site-to-site peer AWS remote-address '52.194.154.6'
+set vpn ipsec site-to-site peer AWS vti bind 'vti0'
+set vpn ipsec site-to-site peer AWS vti esp-group 'AWS'
+set vpn ipsec site-to-site peer AWS_backup authentication local-id '110.134.213.239'
+set vpn ipsec site-to-site peer AWS_backup authentication mode 'pre-shared-secret'
+set vpn ipsec site-to-site peer AWS_backup authentication pre-shared-secret '8dBpXucERWygH7ymX0VWzZx1gCQboPav'
+set vpn ipsec site-to-site peer AWS_backup authentication remote-id '54.248.82.123'
+set vpn ipsec site-to-site peer AWS_backup description 'VPC tunnel 2'
+set vpn ipsec site-to-site peer AWS_backup ike-group 'AWS'
+set vpn ipsec site-to-site peer AWS_backup local-address '10.0.2.15'
+set vpn ipsec site-to-site peer AWS_backup remote-address '54.248.82.123'
+set vpn ipsec site-to-site peer AWS_backup vti bind 'vti1'
+set vpn ipsec site-to-site peer AWS_backup vti esp-group 'AWS'
+ ```
+</details>
+ 
