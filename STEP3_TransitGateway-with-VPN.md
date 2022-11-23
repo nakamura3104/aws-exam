@@ -128,6 +128,9 @@ vyos@vyos:~$ show ip bgp
 *                   169.254.61.113         100             0 64512 i
 ```
 
+## 完成系
+![image](https://user-images.githubusercontent.com/60680996/203590744-afa15d7d-5d3a-4fc7-95d2-ab8828965019.png)
+
 - 2.cloud hub
 - 3.direct connect gw + transit gw + vpn
 - 4.dx-gw + tgw + vpn vpc マルチリージョン
