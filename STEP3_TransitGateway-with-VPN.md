@@ -106,7 +106,7 @@ resource "aws_vpn_connection" "vpn" {
 ```
 
 ## 3. Test & Confirm
-- MED属性は両方とも100で通知（VGWの時は100と200でBackup側が優先だった）
+- MED属性は両方とも100で通知（[VGWの時は100と200でBackup側が優先だった](https://github.com/nakamura3104/aws-exam/blob/main/STEP2_Add-Second-VPN.md?plain=1#L62)）
 
 ```
 vyos@vyos:~$ show ip bgp
