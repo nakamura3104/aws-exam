@@ -1,10 +1,10 @@
 # Transit Gateway + VPN
  - Enable BGP ECMP
- - 
+
 ### White Paper
 https://docs.aws.amazon.com/ja_jp/whitepapers/latest/aws-vpc-connectivity-options/aws-transit-gateway-vpn.html
 
-![fig]([https://docs.aws.amazon.com/ja_jp/whitepapers/latest/aws-vpc-connectivity-options/images/image4.png](https://docs.aws.amazon.com/ja_jp/whitepapers/latest/aws-vpc-connectivity-options/images/image5.png))
+![fig](https://docs.aws.amazon.com/ja_jp/whitepapers/latest/aws-vpc-connectivity-options/images/image5.png)
 
 ## 1. Delete AS-Path Prepend from VyOS for ECMP
 ### VyOS Config
