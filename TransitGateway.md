@@ -6,6 +6,7 @@
 
 ### 参考
  - [AWS Transit Gatewayを構築して分かったこと・ベストプラクティスを紐解く](https://blog.serverworks.co.jp/transit-gateway-best-practice)
+ - [Transit Gatewayのルーティング仕様を分かりやすく解説してみる](https://blog.serverworks.co.jp/tech/2020/06/30/transit-gateway-routing/)
 
 # 料金
  - Transit Gateway の所有者に時間単位の請求
