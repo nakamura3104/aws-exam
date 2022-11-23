@@ -105,6 +105,18 @@ resource "aws_vpn_connection" "vpn" {
 }
 ```
 
+## 3. Test & Confirm
+- MED属性は両方とも100で通知（VGWの時は100と200でBackup側が優先だった）
+
+```
+vyos@vyos:~$ show ip bgp
+~~
+   Network          Next Hop            Metric LocPrf Weight Path
+*> 10.0.2.0/24      0.0.0.0                  0         32768 i
+*> 10.99.0.0/16     169.254.234.49         100           300 64512 i
+*                   169.254.61.113         100             0 64512 i
+```
+
 - 2.cloud hub
 - 3.direct connect gw + transit gw + vpn
 - 4.dx-gw + tgw + vpn vpc マルチリージョン
