@@ -1,4 +1,7 @@
 # 0. Overview
+### White Paper
+https://docs.aws.amazon.com/ja_jp/whitepapers/latest/aws-vpc-connectivity-options/aws-managed-vpn.html
+
 ### Diagram
 ![image](https://user-images.githubusercontent.com/60680996/202897297-814da4e2-1754-4859-bf2c-7f5e8bd9e9cd.png)
 
