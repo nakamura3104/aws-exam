@@ -129,7 +129,12 @@ vyos@vyos:~$ show ip bgp
 ```
 
 - AWS側からのPingの場合、行きと戻りのフローが別のVPNを通っている。
+
 ![image](https://user-images.githubusercontent.com/60680996/203592515-bc86995e-321d-49f9-8572-eca3f412f48d.png)
+
+- VyOS側からもPingを打つとIN/OUT共に.6の経路に流れた。
+
+![image](https://user-images.githubusercontent.com/60680996/203593976-fce37ba3-c9e0-4fd5-b246-3b014532dfcc.png)
 
 
 ## 完成系
