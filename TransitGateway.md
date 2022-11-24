@@ -8,6 +8,7 @@
  - [AWS Transit Gatewayを構築して分かったこと・ベストプラクティスを紐解く](https://blog.serverworks.co.jp/transit-gateway-best-practice)
  - [Transit Gatewayのルーティング仕様を分かりやすく解説してみる](https://blog.serverworks.co.jp/tech/2020/06/30/transit-gateway-routing/)
  - [AWS VGW / DGW / TGW の比較](https://www.megaport.com/ja/blog/aws-vgw-vs-dgw-vs-tgw/)
+ - [第６回「Direct Connect Gateway、Transit Gatewayは何に注意して、どう使えばいいの？」](https://atbex.attokyo.co.jp/blog/detail/40/)
 
 # 料金
  - Transit Gateway の所有者に時間単位の請求
@@ -21,5 +22,5 @@
  - VPCとのアタッチは、ENI経由となり、専用のサブネットを作成することが推奨。
    - VPCアタッチメントサブネットのルートテーブルはTGW用のルートテーブルになってしまうため。
  - 送信元IPが自VPCのアタッチメントのENIのIPになる等、暗黙的な仕様があるため、ネットワークACLはフルオープンにする。
- - 
+ 
  
