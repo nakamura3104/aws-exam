@@ -1,39 +1,20 @@
 # 概要
 
-[Blackblet 2021/2/9](https://d1.awsstatic.com/webinars/jp/pdf/services/20210209-AWS-Blackbelt-DirectConnect.pdf)
-[Blackbelt 2020/2/19](https://techstock.jp/wp-content/uploads/20200219_BlackBelt_Onpremises_Redundancy.pdf)
+- [Blackblet 2021/2/9](https://d1.awsstatic.com/webinars/jp/pdf/services/20210209-AWS-Blackbelt-DirectConnect.pdf)
+- [Blackbelt 2020/2/19](https://techstock.jp/wp-content/uploads/20200219_BlackBelt_Onpremises_Redundancy.pdf)
 
 # DirectConnect関連
- - クロスコネクトでユーザのルータに必要な使用は、.1q対応、BGPのmd5認証、シングルモード対応
-   - 通常利用
-     - http://corporate-tech-blog-wp.s3-website-ap-northeast-1.amazonaws.com/tech/wp-content/uploads/2018/12/DX_Normal.png
-   - 通常じゃない利用、Hosted Virtual Interface
-     - Connection（回線）を別のアカウントが持っていて、そこからVIFが払い出されている場合の構成のこと
-     - http://corporate-tech-blog-wp.s3-website-ap-northeast-1.amazonaws.com/tech/wp-content/uploads/2018/12/DX_PartnerHostedVIF.png
-   - 料金体系
-     - AWSからのOutboundに課金
-     - VIFのオーナーアカウントに課金
 　
 - 現時点の疑問()
-  - マルチAZの場合のレイテンシは発生する(公式は考慮不要? とあるが実際はどうか)
-  - →2msec程度はある。アプリ側でAZ跨ぐような通信があるか。その場合、どれくらいの遅延を許容できる仕様かによる
-  - ★はい、ご認識の通りです。
   - AZ障害に対応できるNFSマウントできるマネージドサービスはあるか? EFSはAZフェイルオーバーはなさそう。
   - →いや、ある。
   - EFS自体はマルチAZで展開され、AZ毎にエンドポイントがあるから、AZ障害にも対応可能
   - ★AZ-A の EFS エンドポイントが死んだ時に AZ-C のエンドポイントに自動切り替え(再マウント)される機能は無いです。
+  
   - SESでキャリアメールには問題なく送付可能? EC2からメール送付する場合、レピュテーション対策は必須?
-  - →可能。レピュテーションは、迷惑メール送る様なメールサーバを立てるつもりなのか？
-  - ★そもそも SES はバウンス率が高いと送信制限が発生するサービスなので、B2C で使用するのは危険。おとなしく SendGrid あたりをつかいましょう。
-  - キャリアメールへの送信は SPF レコードをちゃんと設定すれば問題なし。
-  - RDS MultiAZよりはAurora?
-  - →AuroraもRDSだか、使いたいDBエンジンと要求性能、コストで比較し決定する必要がある
-  - ★可用性を考慮するなら Aurora 一択。Aurora は RDS for XXX と違い、Zone にまたがってデータを保管する仕組みのため、フェイルオーバーが高速かつ信頼性も高い。通常のRDS XXX は、同様のインスタンスを作成し、レプリケーション等でデータの同期を行う必要があるため、レプリケーション中にダウンした場合はデータのロストが発生する。
-　もちろんその分コストは高いので、お財布と要相談
-- 各種ログ(LB、CloudTrail)をS3に格納するのでフォルダツリーがカオスになりそう。ツリー構造のサンプルを助言願いたい。
-→べつにAWS関係ない。用途に応じて、運用性考慮しふつうに考える。
-★ツリー構造は意識したことが無いので、持ち帰りの宿題。
-　LB や CloudTrail 以外のログであれば、CloudWatchLogs で取得するのが簡単かつ、視認性が高い。
+    - →可能。レピュテーションは、迷惑メール送る様なメールサーバを立てるつもりなのか？
+    - ★そもそも SES はバウンス率が高いと送信制限が発生するサービスなので、B2C で使用するのは危険。おとなしく SendGrid あたりをつかいましょう。
+    - キャリアメールへの送信は SPF レコードをちゃんと設定すれば問題なし。
 
 # 料金・制限関連
  - 初期＋接続料/h＋OUT方向データ転送料金が発生する。
