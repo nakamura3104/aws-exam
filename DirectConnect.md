@@ -1,12 +1,7 @@
 # 概要
 
 [Blackblet 2021/2/9](https://d1.awsstatic.com/webinars/jp/pdf/services/20210209-AWS-Blackbelt-DirectConnect.pdf)
-
 [Blackbelt 2020/2/19](https://techstock.jp/wp-content/uploads/20200219_BlackBelt_Onpremises_Redundancy.pdf)
-
-# 使用メモ（未分類）
- - dxを介した相互通信→NG
- - dxリージョン間接続→DirectConnectGatewayとか使わないとできない
 
 # DirectConnect関連
  - クロスコネクトでユーザのルータに必要な使用は、.1q対応、BGPのmd5認証、シングルモード対応
