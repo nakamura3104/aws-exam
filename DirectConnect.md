@@ -3,19 +3,6 @@
 - [Blackblet 2021/2/9](https://d1.awsstatic.com/webinars/jp/pdf/services/20210209-AWS-Blackbelt-DirectConnect.pdf)
 - [Blackbelt 2020/2/19](https://techstock.jp/wp-content/uploads/20200219_BlackBelt_Onpremises_Redundancy.pdf)
 
-# DirectConnect関連
-　
-- 現時点の疑問()
-  - AZ障害に対応できるNFSマウントできるマネージドサービスはあるか? EFSはAZフェイルオーバーはなさそう。
-  - →いや、ある。
-  - EFS自体はマルチAZで展開され、AZ毎にエンドポイントがあるから、AZ障害にも対応可能
-  - ★AZ-A の EFS エンドポイントが死んだ時に AZ-C のエンドポイントに自動切り替え(再マウント)される機能は無いです。
-  
-  - SESでキャリアメールには問題なく送付可能? EC2からメール送付する場合、レピュテーション対策は必須?
-    - →可能。レピュテーションは、迷惑メール送る様なメールサーバを立てるつもりなのか？
-    - ★そもそも SES はバウンス率が高いと送信制限が発生するサービスなので、B2C で使用するのは危険。おとなしく SendGrid あたりをつかいましょう。
-    - キャリアメールへの送信は SPF レコードをちゃんと設定すれば問題なし。
-
 # 料金・制限関連
  - 初期＋接続料/h＋OUT方向データ転送料金が発生する。
  - 月額での接続料は、1Gで2万、10Gで22万、100Gで200万くらい。ざっくりだが。
