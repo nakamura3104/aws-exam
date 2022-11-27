@@ -4,6 +4,8 @@
 - [Transit Gatewayのルーティング仕様を分かりやすく解説してみる](https://blog.serverworks.co.jp/tech/2020/06/30/transit-gateway-routing/)
 
 # Diagram
+![fig](img/TGW-Peering.png)
+
 
 # AWS Resources
 ### Transit-GW for JP
