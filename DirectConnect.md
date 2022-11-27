@@ -2,6 +2,7 @@
 
 - [Blackblet 2021/2/9](https://d1.awsstatic.com/webinars/jp/pdf/services/20210209-AWS-Blackbelt-DirectConnect.pdf)
 - [Blackbelt 2020/2/19](https://techstock.jp/wp-content/uploads/20200219_BlackBelt_Onpremises_Redundancy.pdf)
+- [Direct ConnectでデータセンターとAWSを繋ぐ（Direct Connect Gateway＋Transit Gateway＋EC2）](https://blog.engineer.adways.net/entry/2020/09/25/170000)
 
 # 料金・制限関連
  - 初期＋接続料/h＋OUT方向データ転送料金が発生する。
