@@ -227,9 +227,3 @@ PING 10.0.2.15 (10.0.2.15) 56(84) bytes of data.
 64 bytes from 10.0.2.15: icmp_seq=6 ttl=61 time=165 ms
 64 bytes from 10.0.2.15: icmp_seq=7 ttl=61 time=166 ms
 ```
-
-
-- 2.cloud hub
-- 3.direct connect gw + transit gw + vpn
-- 4.dx-gw + tgw + vpn vpc マルチリージョン
-- 5.dx-gw + tgw + vpn vpc クロスアカウント
