@@ -9,6 +9,7 @@
  - [Transit Gatewayのルーティング仕様を分かりやすく解説してみる](https://blog.serverworks.co.jp/tech/2020/06/30/transit-gateway-routing/)
  - [AWS VGW / DGW / TGW の比較](https://www.megaport.com/ja/blog/aws-vgw-vs-dgw-vs-tgw/)
  - [第６回「Direct Connect Gateway、Transit Gatewayは何に注意して、どう使えばいいの？」](https://atbex.attokyo.co.jp/blog/detail/40/)
+ - [Transit GatewayやDirect ConnectのAS番号について](https://blog.serverworks.co.jp/tech/2020/07/01/asn-with-dx-transitgateway/)
 
 # 料金
  - Transit Gateway の所有者に時間単位の請求
