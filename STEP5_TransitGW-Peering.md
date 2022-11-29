@@ -23,10 +23,11 @@ locals {
 resource "aws_ec2_transit_gateway" "tgw" {
   count = local.tgw ? 1 : 0
 
+  amazon_side_asn                = 65100
   auto_accept_shared_attachments = "enable"
 
   tags = {
-    "Name" = "satoshi-tgw"
+    "Name" = "satoshi-tgw-jp"
   }
 }
 
@@ -53,6 +54,7 @@ resource "aws_route" "public_tgw" {
   destination_cidr_block = "10.0.2.0/24"
   transit_gateway_id     = aws_ec2_transit_gateway.tgw.0.id
 }
+
 ```
 - Transit-GW Peering
 ```terraform
@@ -78,13 +80,13 @@ resource "aws_ec2_transit_gateway_peering_attachment" "jp_us" {
 
 // Transit GW Route to US.
 resource "aws_ec2_transit_gateway_route" "jp_us" {
-  count = local.tgw && local.tgw_us ? 1 : 0
+  count      = local.tgw && local.tgw_us ? 1 : 0
+  depends_on = [aws_ec2_transit_gateway_peering_attachment_accepter.tgw_us.0]
 
   destination_cidr_block         = module.vpc["1"].vpc_cidr_block
   transit_gateway_attachment_id  = aws_ec2_transit_gateway_peering_attachment.jp_us.0.id
   transit_gateway_route_table_id = aws_ec2_transit_gateway.tgw.0.association_default_route_table_id
 }
-
 ```
 
 ### Transit-GW for US
@@ -98,12 +100,27 @@ resource "aws_ec2_transit_gateway" "tgw_us" {
   provider = aws.us
   count    = local.tgw_us ? 1 : 0
 
+  amazon_side_asn = 65200
   auto_accept_shared_attachments = "enable"
 
   tags = {
-    "Name" = "satoshi-tgw"
+    "Name" = "satoshi-tgw-us"
   }
 }
+
+// Peering Attachement auto accept for JP to US
+resource "aws_ec2_transit_gateway_peering_attachment_accepter" "tgw_us" {
+  provider = aws.us
+  count    = local.tgw_us ? 1 : 0
+
+  transit_gateway_attachment_id = aws_ec2_transit_gateway_peering_attachment.jp_us.0.id
+
+  tags = {
+    Name = "satoshi-tgw-jp-to-us-accept"
+  }
+}
+
+
 
 // Transit Gateway attachment to Network Subnet.
 resource "aws_ec2_transit_gateway_vpc_attachment" "tgw_us" {
@@ -144,8 +161,9 @@ resource "aws_route" "via_jp_vyos_from_public" {
 
 // Transit GW Route to US.
 resource "aws_ec2_transit_gateway_route" "us_jp" {
-  provider = aws.us
-  count    = local.tgw && local.tgw_us ? 1 : 0
+  provider   = aws.us
+  count      = local.tgw && local.tgw_us ? 1 : 0
+  depends_on = [aws_ec2_transit_gateway_peering_attachment_accepter.tgw_us.0]
 
   destination_cidr_block         = var.vpc.cidr
   transit_gateway_attachment_id  = aws_ec2_transit_gateway_peering_attachment.jp_us.0.id
@@ -154,14 +172,15 @@ resource "aws_ec2_transit_gateway_route" "us_jp" {
 
 // Transit GW Route to JP-VyOS(via VPN).
 resource "aws_ec2_transit_gateway_route" "us_jp-vyos" {
-  provider = aws.us
-  count    = local.tgw && local.tgw_us ? 1 : 0
+  provider   = aws.us
+  count      = local.tgw && local.tgw_us ? 1 : 0
+  depends_on = [aws_ec2_transit_gateway_peering_attachment_accepter.tgw_us.0]
+
 
   destination_cidr_block         = "10.0.2.0/24"
   transit_gateway_attachment_id  = aws_ec2_transit_gateway_peering_attachment.jp_us.0.id
   transit_gateway_route_table_id = aws_ec2_transit_gateway.tgw_us.0.association_default_route_table_id
 }
-
 ```
 
 # VyOS
@@ -179,6 +198,25 @@ B>* 10.201.0.0/16 [20/100] via 169.254.61.113, vti1, weight 1, 00:03:33
 C>* 169.254.0.0/16 is directly connected, eth2, 00:51:59
 C>* 169.254.61.112/30 is directly connected, vti1, 00:51:58
 C>* 169.254.234.48/30 is directly connected, vti0, 00:51:57
+
+//BGP information
+vyos@vyos:~$ show ip bgp
+BGP table version is 16, local router ID is 10.0.2.15, vrf id 0
+Default local pref 100, local AS 65000
+Status codes:  s suppressed, d damped, h history, * valid, > best, = multipath,
+               i internal, r RIB-failure, S Stale, R Removed
+Nexthop codes: @NNN nexthop's vrf id, < announce-nh-self
+Origin codes:  i - IGP, e - EGP, ? - incomplete
+RPKI validation codes: V valid, I invalid, N Not found
+
+   Network          Next Hop            Metric LocPrf Weight Path
+*> 10.0.2.0/24      0.0.0.0                  0         32768 i
+*= 10.99.0.0/16     169.254.61.113         100             0 65100 i
+*>                  169.254.234.49         100             0 65100 i
+*= 10.201.0.0/16    169.254.61.113         100             0 65100 i
+*>                  169.254.234.49         100             0 65100 i
+
+Displayed  3 routes and 5 total paths
 ```
 
 # Ping
