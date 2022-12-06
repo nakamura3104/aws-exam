@@ -1,3 +1,6 @@
+# ToDo Learn
+DNSSEC by Route53
+
 # 一般知識
 ### フォワーダ
 - 自分自身ではDNSの名前解決を行わず、別のフルサービスリゾルバへDNS要求を中継するDNSサーバ
