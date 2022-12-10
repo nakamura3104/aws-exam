@@ -39,9 +39,18 @@ DNSSEC by Route53
 　server02.example.jp.    IN  A   192.168.20.32
 　-----------------------------------------------------------------
 ```
+
 ***
 
-# Amazon Provided DNS
+# Route 53 DNS Firewall
+- Route53 Resolverでの名前解決に適用できるDNS Firewall。
+- ドメインリストとアクション（Allow,Block,Alert）を定義する。
+
+<br>
+
+***
+
+# Route53 Resolver (旧Amazon Provided DNS）
 - VPCのネットワークアドレスに2を加えたIPを持つ。
 - キャッシュサーバとしてのみ利用可能。（フルリゾルバ）。
 - セットしたVPCのAmazonDNS以外からはアクセスできない。（VPC内からしか利用できない）
@@ -52,7 +61,7 @@ DNSSEC by Route53
 ***
 <br>
 
-# Route53 Resolver
+# Route53 Resolver for Hyblid Clouds
 - オンプレからAWS内の名前を解決できるリゾルバ/フォワーダ機能
 - プライベート空間のみ（オンプレかAWSのリソースの名前解決、AWSからオンプレのリソースの名前解決）可能
 - inboud方向とoutbound方向があり、エンドポイントとしてのIPが提供され、inboudの場合はそのIPをリゾルバ/フォワーダと指定することでオンプレからAmazonDNS→Route53と名前解決できる。
