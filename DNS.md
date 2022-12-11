@@ -89,6 +89,13 @@
 - 子のDNSKEY（＝公開鍵）のHashを親にDSレコードとして登録することで、このゾーン（ZSK,KSK）の真正を証明する。
 - ![img](https://jprs.jp/related-info/guide/topics-column/18/img_5.jpg)
 
+
+## Route53でのDNSSECの利用
+- Route53（権威サーバ）でもRoute53 Resolver（キャッシュサーバ）でもDNSSECの利用が可能。
+- Route53で有効化した場合、TTLが1週間になる・上位の権威サーバがDSレコードに対応している・ゾーンの状態をCloudwatchで監視するなど、推奨・必要条件がある。
+  - > [Amazon Route 53 での DNSSEC 署名の設定](https://docs.aws.amazon.com/ja_jp/Route53/latest/DeveloperGuide/dns-configuring-dnssec.html) 
+
+
 ***
 <br>
 
