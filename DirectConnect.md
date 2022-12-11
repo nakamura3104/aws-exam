@@ -83,6 +83,10 @@
 https://atbex.attokyo.co.jp/files/page/AWS/AWS%20Premium%20Connect%20Connection%20Procedures.pdf
 ![image](https://user-images.githubusercontent.com/60680996/200588969-66f57ca0-5379-4cdd-be56-02425fbd277f.png)
 
+# MACsec
+ - L2レベルでの暗号化にも対応している。
+ - https://docs.aws.amazon.com/ja_jp/directconnect/latest/UserGuide/direct-connect-mac-sec-getting-started.html
+
 
 # DirectConnectGateway
 
