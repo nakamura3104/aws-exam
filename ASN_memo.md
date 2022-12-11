@@ -154,11 +154,14 @@ https://www.digicert.co.jp/welcome/pdf/wp_ssl_negotiation.pdf
 ***
 # ELB
 
-## NLB Proxy protocol v2
+## NLB 
+### Proxy protocol v2
 `ALBにおけるXFFのような、クライアントのIPを保持する機能`
  - NLBはターゲットをインスタンスIDで指定すれば、クライアントのIPが保持される。
  - しかし、ターゲットをIPで指定した場合、NLBのIPが送信元となる。
 しらべる
+
+### 
 
 
 ***
