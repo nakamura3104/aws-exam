@@ -113,6 +113,12 @@ https://www.digicert.co.jp/welcome/pdf/wp_ssl_negotiation.pdf
  - udpは使えない。当たり前だけど。httpなのだから。
  - DirectConnectによりオンプレにオリジンサーバを配置することも可能。
  
+ ## CF2とLambda@Edge
+  - ヘッダの追加・変更など軽い処理はCF2で実装する。
+  - 複雑な処理、オリジンとのやり取りにて必要な処理はLambda@Edge。
+  - ![image](https://user-images.githubusercontent.com/60680996/206914213-2c237cd2-b21b-4451-a259-83d8ea169417.png)
+  - https://dev.classmethod.jp/articles/amazon-cloudfront-functions-release/
+ 
 <br>
 
 ***
