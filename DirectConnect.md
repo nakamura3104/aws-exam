@@ -145,13 +145,6 @@ https://atbex.attokyo.co.jp/files/page/AWS/AWS%20Premium%20Connect%20Connection%
    - ローカルプレファレンス
      - 自AS内のIGPルータへ通知する際のメトリック。デフォルト100で値の大きいパスが優先される。
 
-    - AWS側の経路選択の優先度（MEDでの制御も）
-      - ↓ロンゲストマッチ
-      - ↓BGPよりもSTATIC
-      - ↓AS-PATH
-      - ↓ORIGIN（IGP→EGP→？‗IGP-Redist）
-      - ↓ルータID
-      - ↓ネイバーのID
 
 # 監視
 メトリクスを状態監視ができる。
