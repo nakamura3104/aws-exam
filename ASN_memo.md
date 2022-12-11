@@ -19,6 +19,11 @@ https://blog.serverworks.co.jp/I-passed-ans-c01-exam
 <br>
 
 ***
+# Gateway Load Balancer
+### 参考Link
+ - [Geneve](https://blog.shin.do/2014/05/geneve-encapsulation/)
+
+
 # Nat-GW
  - IPフラグメントをサポートしていない。
 
