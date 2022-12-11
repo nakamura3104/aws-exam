@@ -15,7 +15,7 @@
  - Transit Gateway の所有者に時間単位の請求
    - `VPNアタッチメント`
    - `Transit Gateway Connect アタッチメント (SD-WAN アプライアンス)`
-   - `ピア機能のアタッチメント（Transig GWピアリング）` (ほかの Transit Gateway とのピア機能アタッチメントに対して時間単位の請求)
+   - `ピア機能のアタッチメント（Transit GWピアリング）` (ほかの Transit Gateway とのピア機能アタッチメントに対して時間単位の請求)
  - Direct Connect Gateway の所有者に時間単位の請求
    - `AWS Direct Connect アタッチメント`
 
@@ -23,5 +23,9 @@
  - VPCとのアタッチは、ENI経由となり、専用のサブネットを作成することが推奨。
    - VPCアタッチメントサブネットのルートテーブルはTGW用のルートテーブルになってしまうため。
  - 送信元IPが自VPCのアタッチメントのENIのIPになる等、暗黙的な仕様があるため、ネットワークACLはフルオープンにする。
+ - 共有サービスVPCなどをTGW経由で中継させる場合は、アプライアンスモードの有効化が必須となる。
+   - TGWは、VPC間の通信において、同じAZ間で実施される。
+   - 共有サービスVPCなどを介在させると、`(1)起点EC2(AZ1)`→`(2)共有VPC`→`(3)終点EC2(AZ2)`のように1と2でAZが異なる場合、1からの行きの通信と、3からの戻りの通信で共有VPCの宛先となるAZがことなり、非対称ルーティングとなってしまう。
+   - https://dev.classmethod.jp/articles/enable-appliance-mode-when-using-transit-gatewayto-aggregate-communication-to-vpc-for-inspection/
  
  
