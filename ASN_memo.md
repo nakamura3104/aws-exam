@@ -22,6 +22,25 @@
 <br>
 
 ***
+# Routingの優先順位
+## DX and VPN on VGW
+1. ロンゲストマッチ
+2. DXとVPNでは、DXを優先
+3. VPNでBGPとStaticではStaticが優先
+4. BGPの中ではAS Path
+5. AS Pathが同じ場合はMED
+
+## TGW
+1. Static
+2. プレフィックスリスト参照ルート
+3. VPC が伝達したルート
+4. Direct Connect ゲートウェイが伝達したルート
+5. Transit Gateway Connect (GRE Tunnel)が伝達したルート
+6. Site-to-Site VPN 伝達ルート
+
+***
+<br>
+
 # Gateway Load Balancer
 ### 参考Link
  - [Geneve](https://blog.shin.do/2014/05/geneve-encapsulation/)
