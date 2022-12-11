@@ -23,6 +23,15 @@
 
 ***
 # Routingの優先順位
+## DX
+1. ロンゲストマッチ
+2. Static
+3. BGP
+   1. AS-PATH
+   2. 生成元（IGP→EGP→IGP再配送）
+   3. ルータID
+   4. ネイバーのID
+
 ## DX and VPN on VGW
 1. ロンゲストマッチ
 2. DXとVPNでは、DXを優先
