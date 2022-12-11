@@ -1,5 +1,8 @@
 # 受験体験記
-https://blog.serverworks.co.jp/I-passed-ans-c01-exam
+- https://blog.serverworks.co.jp/I-passed-ans-c01-exam
+- https://qiita.com/go_sougen/items/43dae9a62cf1c8356548
+- https://qiita.com/the13-HK/items/349cdf5f38e0ce1e47b1
+- https://qiita.com/aminosan000/items/dfea62d2c6cc2763d15c
 
 ***
 # Hands-On
