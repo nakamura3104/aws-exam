@@ -49,8 +49,37 @@
 
 ***
 # DNSSEC
+## 参考リンク
  - [NSECレコードとは](https://hnw.hatenablog.com/entry/20160327#:~:text=NSEC%E3%83%AC%E3%82%B3%E3%83%BC%E3%83%89%E3%81%A8%E3%81%AF,%E3%81%99%E3%82%8B%E3%82%88%E3%81%86%E3%81%AA%E4%BB%95%E7%B5%84%E3%81%BF%E3%81%A7%E3%81%99%E3%80%82)
-- 
+ - [【図解】初心者にも分かりそうなDNSSECの仕組みと機能,シーケンス～キャッシュポイズニングと対策,普及/対応状況,KSKとZSKを分ける意義～](https://milestone-of-se.nesuke.com/l7protocol/dns/dnssec-summary/)
+
+## 概要
+ - DNSキャッシュポインズニングを防ぐための仕組み。
+ - `公開鍵/秘密鍵によるデジタル署名`技術を使っているが、形式は https のような`X.509`ではなく、DNSSEC 専用のフォーマットが使われる。
+ - 当該の権威サーバからDNSKEYレコードで公開鍵を、RRSIGレコードで当該レコードの署名を入手し、応答内容と応答相手を検証する。
+
+
+## 用語
+`KSK(鍵署名鍵)`
+- あ
+- > [link](https://jprs.jp/glossary/index.php?ID=0232)
+
+`DNSKEYレコード`
+- DNSSEC検証に用いる公開鍵を格納するためのリソースレコード。([detail](https://jprs.jp/glossary/index.php?ID=0214))
+- ![img](https://jprs.jp/glossary/imgs/DNSKEY-RR.png)
+  - flag： ZSKであれば256を、KSKであれば257を指定します。
+  - protocol： DNSSECを示すプロトコル番号である3を指定します。
+  - algorithm： DNSSECのアルゴリズム番号（※）を定義し、RSASHA256の場合は8を指定します。
+  - public key： Base64という方式で符号化した公開鍵の内容を記述します。
+
+`RRSIGレコード`
+- リソースレコードに対する電子署名を格納するレコード。別途取得したそのゾーンのDNSKEYリソースレコードと併せて応答を検証する。([detail](https://jprs.jp/glossary/index.php?ID=0224))
+
+`DSレコード`
+- 子ゾーンのDNSKEYレコードの真正を証明するためのレコード
+- 子のDNSKEY（＝公開鍵）のHashを親にDSレコードとして登録することで、このゾーン（ZSK,KSK）の真正を証明する。
+- ![img](https://jprs.jp/related-info/guide/topics-column/18/img_5.jpg)
+
 ***
 <br>
 
