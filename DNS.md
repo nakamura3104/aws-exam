@@ -49,6 +49,7 @@
 
 ***
 # DNSSEC
+ - [NSECレコードとは](https://hnw.hatenablog.com/entry/20160327#:~:text=NSEC%E3%83%AC%E3%82%B3%E3%83%BC%E3%83%89%E3%81%A8%E3%81%AF,%E3%81%99%E3%82%8B%E3%82%88%E3%81%86%E3%81%AA%E4%BB%95%E7%B5%84%E3%81%BF%E3%81%A7%E3%81%99%E3%80%82)
 - 
 ***
 <br>
