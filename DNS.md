@@ -92,6 +92,9 @@
 
 ## Route53でのDNSSECの利用
 - Route53（権威サーバ）でもRoute53 Resolver（キャッシュサーバ）でもDNSSECの利用が可能。
+- Route53の場合、KSKはKMSのカスタマーマネージドキー（非対称）である必要がある。
+- ZSKは、AWS側が自動で作成・更新してくれるため利用者側は管理不要。
+- KSKへのアクセス権がAWS側に適切に設定されてない場合、`[Action needed] (実行が必要)`のエラーとなる。
 - Route53で有効化した場合、TTLが1週間になる・上位の権威サーバがDSレコードに対応している・ゾーンの状態をCloudwatchで監視するなど、推奨・必要条件がある。
   - > [Amazon Route 53 での DNSSEC 署名の設定](https://docs.aws.amazon.com/ja_jp/Route53/latest/DeveloperGuide/dns-configuring-dnssec.html) 
 
