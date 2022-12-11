@@ -70,7 +70,7 @@
   - ZSKとKSKのDNSKEYレコードの署名するための鍵。
   - `ZSK公開鍵`のDNSKEYリソースレコードをゾーンに登録し、`KSK秘密鍵`で署名することにより、当該ゾーン内におけるZSKの真正を証明する。
   - KSKの真正は、KSKのDNSKEYレコードを上位の権威サーバのDSレコードとして申請・登録することで信頼チェーンを構築する。
-  
+- ![img](https://jprs.jp/glossary/imgs/ZSK-KSK.png)
 
 `DNSKEYレコード`
 - DNSSEC検証に用いる公開鍵を格納するためのリソースレコード。([detail](https://jprs.jp/glossary/index.php?ID=0214))
