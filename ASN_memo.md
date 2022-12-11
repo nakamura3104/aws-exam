@@ -22,6 +22,7 @@ https://blog.serverworks.co.jp/I-passed-ans-c01-exam
 # Gateway Load Balancer
 ### 参考Link
  - [Geneve](https://blog.shin.do/2014/05/geneve-encapsulation/)
+ - [Checkpoint](https://blog.checkpoint.com/2020/11/10/check-point-cloudguard-integrates-with-aws-gateway-load-balancer-at-launch/)
 
 
 # Nat-GW
