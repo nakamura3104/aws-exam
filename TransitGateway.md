@@ -28,6 +28,10 @@
    - 共有サービスVPCなどを介在させると、`(1)起点EC2(AZ1)`→`(2)共有VPC`→`(3)終点EC2(AZ2)`のように1と2でAZが異なる場合、1からの行きの通信と、3からの戻りの通信で共有VPCの宛先となるAZがことなり、非対称ルーティングとなってしまう。
    - https://dev.classmethod.jp/articles/enable-appliance-mode-when-using-transit-gatewayto-aggregate-communication-to-vpc-for-inspection/
  
+ ### ルート伝搬
+ - VPCアタッチメントの場合、伝播を有効にしていればCIDRは自動的にプロパゲートされる。
+ - ただし、VPC内のルートテーブルに定義されているStaticは、TGWのルートテーブルにはプロパゲートされない。
+   - https://docs.aws.amazon.com/ja_jp/vpc/latest/tgw/how-transit-gateways-work.html
  
 # Transit GW Connect
 > - [Transit Gateway Connect アタッチメントと Transit Gateway Connect ピア](https://docs.aws.amazon.com/ja_jp/vpc/latest/tgw/tgw-connect.html)
