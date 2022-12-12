@@ -132,7 +132,18 @@ https://www.digicert.co.jp/welcome/pdf/wp_ssl_negotiation.pdf
  - udpは使えない。当たり前だけど。httpなのだから。
  - DirectConnectによりオンプレにオリジンサーバを配置することも可能。
  
- ## CF2とLambda@Edge
+## CDN一般
+### キャッシュさせない設定(Cache-Controlヘッダー)
+`private`
+- レスポンスがひとりのユーザーのため(private)のものであり、共有キャッシュに保存してはいけない。 つまり、プライベートなんだからそもそもキャッシュするのは論外！！
+
+`no-cache`
+- オリジンサーバーの確認無しに勝手にキャッシュしてはいけない。つまり、勝手に再利用するな！毎回聞きに来い！ノー、キャッシュ！！
+
+`no-store`
+- リクエスト、レスポンスをキャッシュしてはいけない。つまり、キャッシュに記録するんじゃないぞ！ノー、ストア！！
+
+## CF2とLambda@Edge
   - ヘッダの追加・変更など軽い処理はCF2で実装する。
   - 複雑な処理、オリジンとのやり取りにて必要な処理はLambda@Edge。
   - ![image](https://user-images.githubusercontent.com/60680996/206914213-2c237cd2-b21b-4451-a259-83d8ea169417.png)
