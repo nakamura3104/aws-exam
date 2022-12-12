@@ -145,8 +145,8 @@ https://www.digicert.co.jp/welcome/pdf/wp_ssl_negotiation.pdf
 
 ### 同じビューからからの2度目のリクエストはエッジキャッシュにヒット
 ![img](https://d1tlzifd8jdoy4.cloudfront.net/wp-content/uploads/2020/10/cache-hit-pop.png)
-
 <br>
+
 ### 別POPの場合はリージョナルキャッシュにヒット
 ![img](https://d1tlzifd8jdoy4.cloudfront.net/wp-content/uploads/2020/10/cache-hit-regional.png)
 <br>
