@@ -143,6 +143,15 @@ https://www.digicert.co.jp/welcome/pdf/wp_ssl_negotiation.pdf
 `no-store`
 - リクエスト、レスポンスをキャッシュしてはいけない。つまり、キャッシュに記録するんじゃないぞ！ノー、ストア！！
 
+> CFは、上記を設定していてもオリジンと通信できない場合、キャッシュを返してしまう。
+> https://docs.aws.amazon.com/ja_jp/AmazonCloudFront/latest/DeveloperGuide/Expiration.html
+> ```
+> オリジンが接続不能で、さらに最小 TTL が 0 より大きい場合、CloudFront は、先にオリジンから取得済みのオブジェクトを返信します。
+> この動作を回避するには、Cache-Control: stale-if-error=0 ディレクティブに、オリジンから返されたオブジェクトを含めます。
+> このようにすることで、オリジンが接続不能な場合に CloudFront が以後のリクエストに応答する際、以前にオリジンから取得したオブジェクトを返すのではなくエラーを返すようになります。
+> ```
+
+
 ## CF2とLambda@Edge
   - ヘッダの追加・変更など軽い処理はCF2で実装する。
   - 複雑な処理、オリジンとのやり取りにて必要な処理はLambda@Edge。
