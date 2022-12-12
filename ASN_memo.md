@@ -256,7 +256,7 @@ https://docs.aws.amazon.com/ja_jp/AWSEC2/latest/UserGuide/placement-groups.html#
 
 ![privatelink](https://devlog.arksystems.co.jp/2018/05/11/4896/)
 
-### Gateway方式とInterface方式
+## Gateway方式とInterface方式
 - Gateway方式
   - 対応しているのはS3とDynamoだけ
   - VPCエンドポイントはリージョン毎の設定となる
@@ -276,7 +276,7 @@ https://docs.aws.amazon.com/ja_jp/AWSEC2/latest/UserGuide/placement-groups.html#
 | 利用料金     | 無料                                                                               | 有料                                                                                                                                       | 
 | 冗長性       | ユーザー側で意識する必要なし                                                       | マルチAZで配置するように設定する                                                                                                           | 
 
-### VPC エンドポイントポリシー
+## VPC エンドポイントポリシー
 - エンドポイントの作成時または変更時にエンドポイントにアタッチする IAM リソースポリシー
 - エンドポイントの作成時にポリシーをアタッチしない場合、サービスへのフルアクセスを許可するデフォルトのポリシーがアタッチされる
 - 他のポリシー（S3の場合、IAMユーザポリシーやバケットポリシー）を上書きするものではない。（and条件で許可が必要）
