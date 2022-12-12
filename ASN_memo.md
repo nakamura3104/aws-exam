@@ -124,6 +124,7 @@ https://www.digicert.co.jp/welcome/pdf/wp_ssl_negotiation.pdf
 
 ***
 # CloudFront
+## Overview
  - CloudFrontは、リクエストの最初のバイトを受信したらファイルをユーザに転送し始める仕様。
  - web socketに対応
  - error 504：オリジンにアクセスできない、応答が遅い
@@ -136,6 +137,23 @@ https://www.digicert.co.jp/welcome/pdf/wp_ssl_negotiation.pdf
   - 複雑な処理、オリジンとのやり取りにて必要な処理はLambda@Edge。
   - ![image](https://user-images.githubusercontent.com/60680996/206914213-2c237cd2-b21b-4451-a259-83d8ea169417.png)
   - https://dev.classmethod.jp/articles/amazon-cloudfront-functions-release/
+ 
+ ## Origin Shield
+ > [Amazon CloudFrontにオリジンへのリクエストを軽減するキャッシュレイヤー(Origin Shield)が追加されました](https://dev.classmethod.jp/articles/amazon-cloudfront-support-cache-layer-origin-shield/)
+ - Edge location, Reginal Edge Cache より更にOrigin側に配置できるキャッシュ。
+ - グローバルに提供されるようなサービスに対し、よりキャッシュを効率化するための機能。
+
+### 同じビューからからの2度目のリクエストはエッジキャッシュにヒット
+![img](https://d1tlzifd8jdoy4.cloudfront.net/wp-content/uploads/2020/10/cache-hit-pop.png)
+
+<br>
+### 別POPの場合はリージョナルキャッシュにヒット
+![img](https://d1tlzifd8jdoy4.cloudfront.net/wp-content/uploads/2020/10/cache-hit-regional.png)
+<br>
+
+### 別リージョンの場合はOrigin Shield キャッシュにヒット
+![img](https://d1tlzifd8jdoy4.cloudfront.net/wp-content/uploads/2020/10/cache-hit-shield.png)
+<br>
  
 <br>
 
