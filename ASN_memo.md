@@ -8,19 +8,28 @@
 # Hands-On
  - [Site-to-Site VPN (Single)](https://github.com/nakamura3104/aws-exam/blob/main/VyOS.md)
 
+ - SourceとDestinationがそれぞれ別VPCのトラフィックミラーリングと、ミラーリングしたパケットのフィルタ。
+ - エンドポイントサービスのオンプレからの名前解決
+ - Shared VPCでの別VPCのNAT-GWを使った通信
  - s3エンドポイント＋エンドポイントポリシーでのプライベート接続
    - （エンドポイントポリシーというものを認識していなかった）
  - オンプレからアクセスできるもの、できないも、やり方
  - オンプレミスDNSフォワーダからプライベートホストゾーンの名前解決
- - [この資料](https://techstock.jp/wp-content/uploads/20200219_BlackBelt_Onpremises_Redundancy.pdf)の冗長化方法、可能な限り
  - CF+S3で署名付きリクエストを使って特定のユーザにのみコンテンツを配信する。
- - CludHubを使ったVGW経由のサイト間通信
  - Private Link
  - Gateway Load Balancer
  - Global Accelarator
 
 <br>
 
+***
+# Shared VPC
+- VPCのサブネットを別アカウントに共有する機能
+- 共有するアカウントが親、共有されるアカウントが子の関係となり、Organizations内でないと共有できない。
+- VPCE、FWE、NAT-GWなどのインフラデバイスは、専用サブネット（共有できない）である必要がある。
+
+
+<br>
 ***
 # Private Link
 
