@@ -209,8 +209,14 @@ https://www.digicert.co.jp/welcome/pdf/wp_ssl_negotiation.pdf
  - しかし、ターゲットをIPで指定した場合、NLBのIPが送信元となる。
 しらべる
 
-### 
+### ALBをTargetGroupに登録する
+> - [Network Load BalancerのターゲットグループにApplication Load Balancerを設定する](https://aws.amazon.com/jp/blogs/news/application-load-balancer-aws-privatelink-static-ip-addresses-network-load-balancer/)
+> - [NLBのTargetにALBを指定しhttpsアクセスさせる](https://www.beex-inc.com/blog/nlb_alb_https_access)
 
+- 2021のアップデートでNLBのTGにALBを登録できるようになった。
+- 主なユースケースは、IPを固定したい場合や、ALB配下のアプリケーションをPrivateLinkで公開したい場合。
+
+![img](https://d2908q01vomqb2.cloudfront.net/b3f0c7f6bb763af1be91d9e74eabfeb199dc1f1f/2021/09/28/Picture1-3-1.png)
 
 ***
 # EC2 Network
