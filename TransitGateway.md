@@ -30,5 +30,7 @@
  
  
 # Transit GW Connect
+> - [Transit Gateway Connect アタッチメントと Transit Gateway Connect ピア](https://docs.aws.amazon.com/ja_jp/vpc/latest/tgw/tgw-connect.html)
+> - [Simplify SD-WAN connectivity with AWS Transit Gateway Connect](https://aws.amazon.com/jp/blogs/networking-and-content-delivery/simplify-sd-wan-connectivity-with-aws-transit-gateway-connect/)
 - SD-WAN製品などを複数のVPCと接続したい場合に、仮想アプライアンス（EC2）とTGWが直接GRE&BGPで接続できる機能。
 ![img](https://d2908q01vomqb2.cloudfront.net/5b384ce32d8cdef02bc3a139d4cac0a22bb029e8/2020/12/10/tgw-high-level-architecture-fig-1-v1.png)
