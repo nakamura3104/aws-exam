@@ -22,6 +22,24 @@
 <br>
 
 ***
+# Private Link
+
+## プライベートDNS名
+> - [2020.01.07 [新機能] PrivateLinkの公開サービスにプライベートDNS名が指定可能になりました](https://dev.classmethod.jp/articles/private-dns-name-for-privatelink/)
+> - [2021.02.03 オンプレミスからプライベートネットワークでのアクセスが可能に！PrivateLink に Amazon S3 が追加されました
+](https://dev.classmethod.jp/articles/private-link-for-s3/)
+
+![img](https://d1tlzifd8jdoy4.cloudfront.net/wp-content/uploads/2020/01/pvlink-pv-dns-000.png)
+- PrivateLink（エンドポイントサービス）のFQDNを自身が所有しているパブリックドメインのレコードとして公開できる。
+- 解決されるIPは当然プライベートIP
+- ドメインの認証のためTXTレコードの登録が必要
+- オンプレからのDX/VPNでの接続の場合は、この機能は使えない。（無効にする必要がある）
+
+
+
+***
+<br>
+
 # Routingの優先順位
 ## DX
 1. ロンゲストマッチ
