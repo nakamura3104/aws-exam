@@ -201,6 +201,21 @@ https://www.digicert.co.jp/welcome/pdf/wp_ssl_negotiation.pdf
 
 ***
 # ELB
+## ALB
+- [Quiz1 no.7](https://www.whizlabs.com/learn/course/aws-advanced-networking-speciality/195/quiz/60111/Practice/start)
+  - クライアントIPでリスナールールを設定したい場合、XFFヘッダーを直接指定することはできない。http-headerで指定する。
+> ```
+> [
+>   {
+>       "Field": "http-header",
+>       "HttpHeaderConfig": {
+>           "HttpHeaderName": "User-Agent",
+>           "Values": ["*Chrome*", "*Safari*"]
+>       }
+>   }
+> ]
+> ```
+
 
 ## NLB 
 ### Proxy protocol v2
