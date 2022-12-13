@@ -9,15 +9,17 @@
  - [Site-to-Site VPN (Single)](https://github.com/nakamura3104/aws-exam/blob/main/VyOS.md)
 
  - SourceとDestinationがそれぞれ別VPCのトラフィックミラーリングと、ミラーリングしたパケットのフィルタ。
- - エンドポイントサービスのオンプレからの名前解決
+ - Private Link
+　　 - エンドポイントサービスのオンプレからの名前解決
  - Shared VPCでの別VPCのNAT-GWを使った通信
+ - Gateway Load Balancer
+   - GWLBだけ別VPCでの単一VPCの監査
+   - TGWありで複数VPCを監査 
  - s3エンドポイント＋エンドポイントポリシーでのプライベート接続
    - （エンドポイントポリシーというものを認識していなかった）
  - オンプレからアクセスできるもの、できないも、やり方
  - オンプレミスDNSフォワーダからプライベートホストゾーンの名前解決
  - CF+S3で署名付きリクエストを使って特定のユーザにのみコンテンツを配信する。
- - Private Link
- - Gateway Load Balancer
  - Global Accelarator
 
 <br>
