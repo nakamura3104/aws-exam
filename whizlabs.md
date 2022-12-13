@@ -13,3 +13,11 @@ https://aws.amazon.com/jp/blogs/networking-and-content-delivery/integrating-aws-
 
 ![img](https://d2908q01vomqb2.cloudfront.net/5b384ce32d8cdef02bc3a139d4cac0a22bb029e8/2019/05/03/image1-1.png)
 
+> 想定要件
+- 複数アカウント＆オンプレでRoute53 ResolverやPrivate Hostzoneを共用したい。
+
+> 設計概要
+- VPN接続を1つにまとめるため、VPN接続とVPC間接続は、Transit GWを使う。
+- Route53 Private HostzoneをデプロイするアカウントのVPC（HUB VPC）では、RAMでホストゾーンを共用する。
+- スポークVPCでは、RAMで共有されたPrivate HostzoneをVPCにアタッチすることで、名前解決できるようにする。
+- オンプレミスとの名前解決は、必要に応じてInbound/Outboundエンドポイントを使う。
