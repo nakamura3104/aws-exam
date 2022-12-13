@@ -21,3 +21,11 @@ https://aws.amazon.com/jp/blogs/networking-and-content-delivery/integrating-aws-
 - Route53 Private HostzoneをデプロイするアカウントのVPC（HUB VPC）では、RAMでホストゾーンを共用する。
 - スポークVPCでは、RAMで共有されたPrivate HostzoneをVPCにアタッチすることで、名前解決できるようにする。
 - オンプレミスとの名前解決は、必要に応じてInbound/Outboundエンドポイントを使う。
+
+## 複数テナントのハイブリッド接続
+> [Traffic Segmentation Options in AWS Direct Connect](https://d1.awsstatic.com/architecture-diagrams/ArchitectureDiagrams/traffic-segmentation-aws-direct-connect-ra.pdf)
+
+- TGWと接続しなければ、Private VIFでそれぞれのVPCにL2延伸できる。（スライド２）
+- TGWと接続する場合、オンプレ側がGREに対応していれば、単一のTransit VIFで接続しつつ、GREでL3プレーンを分割できる。（スライド３）
+- TGWと接続しつつもオンプレ側がGRE対応してない場合、Public VIFをセグメントごとに作成し、PVIF毎にSite-to-Site VPNを接続、VPNごとにルートテーブルを分割する。（スライド４）
+
