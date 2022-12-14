@@ -1,5 +1,33 @@
 # Quiz
 
+3
+7
+9
+14
+15
+16
+19
+20
+23
+24
+26
+41
+42
+43
+44
+46
+47
+49
+50
+51
+52
+53
+54
+55
+58
+59
+63
+
 > [No.18](https://www.whizlabs.com/learn/course/aws-advanced-networking-speciality/195/quiz/59967/Practice/start)
 
 プライベートホストゾーンのエイリアスレコードをなぜ、サービス名にする必要があるのか
