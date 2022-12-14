@@ -39,6 +39,12 @@
 - SD-WAN製品などを複数のVPCと接続したい場合に、仮想アプライアンス（EC2）とTGWが直接GRE&BGPで接続できる機能。
 ![img](https://d2908q01vomqb2.cloudfront.net/5b384ce32d8cdef02bc3a139d4cac0a22bb029e8/2020/12/10/tgw-high-level-architecture-fig-1-v1.png)
 
+### 設定時のポイント
+ - GRE VPNの終端となるIPが必要であるため、他のアタッチメントと重複しない範囲で任意のCIDR（`Transit Gateway CIDR blocks`）を割り当てる必要がある。
+ - GREのInner（BGPのPeeringに使用される）アドレスは、`169.254.0.0/24`の中のAWSから予約されている範囲を除いた/29のCIDRを設定する。
+![img](https://d1tlzifd8jdoy4.cloudfront.net/wp-content/uploads/2020/12/fig1-tgwconnect.png)
+
+
 # TGWをフルメッシュで接続する意味
 - TGWをリング型で接続しても、Peering間のルーティングはStaticであるため、あるリージョンの障害時の迂回のような構成はできない。
 - そのため、TGW同士をフルメッシュで接続し、それぞれ直結しているリージョンに1ホップでルーティングできるような経路設計とする必要がある。
