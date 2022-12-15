@@ -26,6 +26,20 @@
 <br>
 
 ***
+# Outposts
+[AWS Outposts に必要なネットワーク接続を理解しよう](https://dev.classmethod.jp/articles/aws-outposts-network-connectivity/)
+- 利用者側のネットワーク機器2台ｘAWS側のデバイス2台でそれぞれLAGで接続
+- Service Linkは、AWS側との接続
+- Local Gatewayは、オンプレ側との接続
+- 上記の2つの用途でそれぞれVLANが必要
+- AWS側、ローカル側ともにBGPが必要
+- AWS側とのWANは、DXもしくはインターネットで、AWS側のパブリックアドレスレンジと通信する。
+- Outposts内のインスタンスとAWS側の通信は、内部的なVPN経由となる。
+- マネジメントコンソール的には、1つの専用AZが作成された感じとなる。
+
+<br>
+
+***
 
 # VPC
 
