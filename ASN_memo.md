@@ -25,8 +25,16 @@
 
 <br>
 
-***
-# Outposts
+*** 
+# 低遅延なネットワーク環境を実現するサービス
+
+## Wavelength Zone
+[AWS Wavelength のよくある質問](https://aws.amazon.com/jp/wavelength/faqs/)
+- キャリア（日本ではKDDI）のDC内に設けられたAWSのコンピューティングゾーン。
+- デバイスと10msec以内のレイテンシで通信したいようなアプリに向いている。
+- デプロイできるサービスは、EC2やEBS。
+
+## Outposts
 [AWS Outposts に必要なネットワーク接続を理解しよう](https://dev.classmethod.jp/articles/aws-outposts-network-connectivity/)
 - 利用者側のネットワーク機器2台ｘAWS側のデバイス2台でそれぞれLAGで接続
 - Service Linkは、AWS側との接続
