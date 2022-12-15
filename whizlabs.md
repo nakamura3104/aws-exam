@@ -21,9 +21,9 @@
 - [ ] 50
 - [x] 51
 - [ ] 52
-- [ ] 53
-- [ ] 54
-- [ ] 55
+- [x] 53
+- [x] 54
+- [x] 55
 - [ ] 58
 - [ ] 59
 - [ ] 63
@@ -56,4 +56,5 @@ https://aws.amazon.com/jp/blogs/networking-and-content-delivery/integrating-aws-
 - TGWと接続しなければ、Private VIFでそれぞれのVPCにL2延伸できる。（スライド２）
 - TGWと接続する場合、オンプレ側がGREに対応していれば、単一のTransit VIFで接続しつつ、GREでL3プレーンを分割できる。（スライド３）
 - TGWと接続しつつもオンプレ側がGRE対応してない場合、Public VIFをセグメントごとに作成し、PVIF毎にSite-to-Site VPNを接続、VPNごとにルートテーブルを分割する。（スライド４）
+  - この場合、Transit VIFではなく、Public VIFであることに注意！（TGWとしてはVPN接続と接続となり、VIF経由の接続ではない）
 
